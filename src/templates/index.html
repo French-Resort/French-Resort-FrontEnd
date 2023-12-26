@@ -1,29 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <title>French Resort</title>
-</head>
-
-<body>
+{% include 'includes/header.html' %}
 
     <!-- Navigation Bar -->
     <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="#">French Resort</a>
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link active" href="#">Home</a>
+                <a class="nav-link active" href="/">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
+                <a class="nav-link" href="/login">Login</a>
             </li>
         </ul>
     </nav>
+    <main>
 
     <!-- Page Content -->
     <div class="container mt-4">
@@ -57,7 +46,7 @@
                     </div>
                     <!-- Search Button -->
                     <div class="form-group col-md-1">
-                        <label for="selectRoomType">&nbsp;</label>
+                        <label>&nbsp;</label>
                         <button type="button" class="btn btn-primary btn-block" id="searchButton">
                             <i class="fa fa-search"></i> <span class="d-md-none d-inline">Search</span>
                         </button>
@@ -96,7 +85,7 @@
             </div>
         </section>
 
-        
+
         <!-- Section - Our Services -->
         <section class="mt-5">
             <!-- Title -->
@@ -128,7 +117,7 @@
             </div>
         </section>
 
-        
+
         <!-- Section - Blue Rectangles with Buttons -->
         <section class="mt-5">
             <!-- Title -->
@@ -161,23 +150,6 @@
         </section>
 
     </div>
+</main>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-light text-center py-3 mt-4">
-        <p>© 2023 French Resort</p>
-        <div class="footer-links">
-            <a href="#">Confidentialité</a> |
-            <a href="#">Conditions générales</a> |
-            <a href="#">Plan du site</a> |
-            <a href="#">Infos sur l'entreprise</a>
-        </div>
-    </footer>
-
-    <!-- Bootstrap JS and jQuery (for datepicker) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-</body>
-
-</html>
+{% include 'includes/footer.html' %}

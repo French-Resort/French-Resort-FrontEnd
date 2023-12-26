@@ -1,0 +1,55 @@
+{% include 'includes/header.html' %}
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">French Resort</a>
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link active" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/">Logout</a>
+        </li>
+    </ul>
+</nav>
+
+<main>
+
+<!-- Page Content -->
+<div class="container mt-4">
+
+    <!-- Section - Log In -->
+    <section>
+        <!-- Title -->
+        <h1 class="text-center">Log In</h1>
+        
+        <!-- Log In -->
+        <div class="bg-light p-4 mt-4 rounded border">
+            <div class="form-row">
+                <!-- Input - User -->
+                <div class="form-group col-md">
+                    <label for="inputUser">User</label>
+                    <input type="text" class="form-control" id="inputUser">
+                </div>
+                <!-- Input - Password -->
+                <div class="form-group col-md">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" class="form-control" id="inputPassword">
+                </div>
+                <!-- Continue Button -->
+                <div class="form-group col-md-auto">
+                    <label>&nbsp;</label>
+                    <button type="button" class="btn btn-primary btn-block" id="continueButton" onclick="window.location.href='{{ url_for('mybookings') }}';">
+                        Continue
+                    </button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <p class="text-center"><a href="/signin">Sign In</a></p>
+    </section>
+</div>
+
+</main>
+
+{% include 'includes/footer.html' %}

@@ -1,0 +1,68 @@
+{% include 'includes/header.html' %}
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">French Resort</a>
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link active" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+        </li>
+    </ul>
+</nav>
+
+<main>
+
+<!-- Page Content -->
+<div class="container mt-4">
+
+    <!-- Section - Sign In -->
+    <section>
+        <!-- Title -->
+        <h1 class="text-center">Sign In</h1>
+        
+        <!-- Sign In -->
+        <div class="bg-light p-4 mt-4 rounded border">
+            <div class="form-row">
+                <!-- Input - FirstName -->
+                <div class="form-group col-md">
+                    <label for="inputFirstName">First Name</label>
+                    <input type="text" class="form-control" id="inputFirstName">
+                </div>
+                <!-- Input - LastName -->
+                <div class="form-group col-md">
+                    <label for="inputLastName">Last Name</label>
+                    <input type="text" class="form-control" id="inputLastName">
+                </div>
+                <!-- Input - Phone -->
+                <div class="form-group col-md">
+                    <label for="inputPhone">Phone Number</label>
+                    <input type="text" class="form-control" id="inputPhone">
+                </div>
+                <!-- Input - Email -->
+                <div class="form-group col-md">
+                    <label for="inputEmail">Email</label>
+                    <input type="text" class="form-control" id="inputEmail">
+                </div>
+                <!-- Input - Password -->
+                <div class="form-group col-md">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" class="form-control" id="inputPassword">
+                </div>
+                <!-- Continue Button -->
+                <div class="form-group col-md-auto">
+                    <label>&nbsp;</label>
+                    <button type="button" class="btn btn-primary btn-block" id="continueButton">
+                        Continue
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</main>
+
+
+{% include 'includes/footer.html' %}
