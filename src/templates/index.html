@@ -1,11 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <title>French Resort</title>
 </head>
+
 <body>
-    
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">French Resort</a>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Login</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container mt-4">
+
+        <!-- Section - Title and Inputs -->
+        <section>
+            <!-- Title -->
+            <h1 class="text-center">French Resort</h1>
+
+            <!-- Gray Box with Inputs -->
+            <div class="bg-light p-4 mt-4 rounded border">
+                <div class="form-row">
+                    <!-- Date Picker - From -->
+                    <div class="form-group col-md">
+                        <label for="inputFrom">From</label>
+                        <input type="date" class="form-control" id="inputFrom">
+                    </div>
+                    <!-- Date Picker - To -->
+                    <div class="form-group col-md">
+                        <label for="inputTo">To</label>
+                        <input type="date" class="form-control" id="inputTo">
+                    </div>
+                    <!-- Select Picker - Room Type -->
+                    <div class="form-group col-md">
+                        <label for="selectRoomType">Room Type</label>
+                        <select class="form-control" id="selectRoomType">
+                            <option value="single">Single Room</option>
+                            <option value="double">Double Room</option>
+                            <option value="deluxe">Deluxe Room</option>
+                        </select>
+                    </div>
+                    <!-- Search Button -->
+                    <div class="form-group col-md-1">
+                        <label for="selectRoomType">&nbsp;</label>
+                        <button type="button" class="btn btn-primary btn-block" id="searchButton">
+                            <i class="fa fa-search"></i> <span class="d-md-none d-inline">Search</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Section - Our Amenities -->
+        <section class="mt-5">
+            <!-- Title -->
+            <h3 class="text-left">Our Amenities</h3>
+
+            <!-- Amenities Boxes -->
+            <div class="row mt-4">
+                <!-- Amenity Box 1 -->
+                <div class="col-md-4">
+                    <div class="rounded p-3 bg-light text-center">
+                        <img src="https://via.placeholder.com/200x100" class="img-fluid rounded mb-3" alt="Amenity 1">
+                        <p>Amenity 1 Description</p>
+                    </div>
+                </div>
+                <!-- Amenity Box 2 -->
+                <div class="col-md-4">
+                    <div class="rounded p-3 bg-light text-center">
+                        <img src="https://via.placeholder.com/200x100" class="img-fluid rounded mb-3" alt="Amenity 2">
+                        <p>Amenity 2 Description</p>
+                    </div>
+                </div>
+                <!-- Amenity Box 3 -->
+                <div class="col-md-4">
+                    <div class="rounded p-3 bg-light text-center">
+                        <img src="https://via.placeholder.com/200x100" class="img-fluid rounded mb-3" alt="Amenity 3">
+                        <p>Amenity 3 Description</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <!-- Section - Our Services -->
+        <section class="mt-5">
+            <!-- Title -->
+            <h3 class="text-left">Our Services</h3>
+
+            <!-- Services Boxes -->
+            <div class="row mt-4">
+                <!-- Service Box 1 -->
+                <div class="col-md-4">
+                    <div class="rounded p-3 bg-light text-center">
+                        <img src="https://via.placeholder.com/200x100" class="img-fluid rounded mb-3" alt="Amenity 1">
+                        <p>Service 1 Description</p>
+                    </div>
+                </div>
+                <!-- Service Box 2 -->
+                <div class="col-md-4">
+                    <div class="rounded p-3 bg-light text-center">
+                        <img src="https://via.placeholder.com/200x100" class="img-fluid rounded mb-3" alt="Amenity 2">
+                        <p>Service 2 Description</p>
+                    </div>
+                </div>
+                <!-- Service Box 3 -->
+                <div class="col-md-4">
+                    <div class="rounded p-3 bg-light text-center">
+                        <img src="https://via.placeholder.com/200x100" class="img-fluid rounded mb-3" alt="Amenity 3">
+                        <p>Service 3 Description</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <!-- Section - Blue Rectangles with Buttons -->
+        <section class="mt-5">
+            <!-- Title -->
+            <h3 class="text-left">Explore Our Offers</h3>
+
+            <!-- Blue Rectangles with Buttons -->
+            <div class="row mt-4">
+                <!-- Rectangle 1 -->
+                <div class="col-md-4">
+                    <div class="rounded p-3 bg-info text-white text-center">
+                        <p>Offer 1 Description</p>
+                        <button type="button" class="btn btn-light">Explore</button>
+                    </div>
+                </div>
+                <!-- Rectangle 2 -->
+                <div class="col-md-4">
+                    <div class="rounded p-3 bg-info text-white text-center">
+                        <p>Offer 2 Description</p>
+                        <button type="button" class="btn btn-light">Explore</button>
+                    </div>
+                </div>
+                <!-- Rectangle 3 -->
+                <div class="col-md-4">
+                    <div class="rounded p-3 bg-info text-white text-center">
+                        <p>Offer 3 Description</p>
+                        <button type="button" class="btn btn-light">Explore</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light text-center py-3 mt-4">
+        <p>© 2023 French Resort</p>
+        <div class="footer-links">
+            <a href="#">Confidentialité</a> |
+            <a href="#">Conditions générales</a> |
+            <a href="#">Plan du site</a> |
+            <a href="#">Infos sur l'entreprise</a>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and jQuery (for datepicker) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
+
 </html>
