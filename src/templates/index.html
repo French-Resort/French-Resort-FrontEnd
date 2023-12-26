@@ -1,18 +1,18 @@
 {% include 'includes/header.html' %}
 
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">French Resort</a>
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link active" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/login">Login</a>
-            </li>
-        </ul>
-    </nav>
-    <main>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">French Resort</a>
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link active" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+        </li>
+    </ul>
+</nav>
+<main>
 
     <!-- Page Content -->
     <div class="container mt-4">
@@ -21,37 +21,38 @@
         <section>
             <!-- Title -->
             <h1 class="text-center">French Resort</h1>
-
             <!-- Gray Box with Inputs -->
             <div class="bg-light p-4 mt-4 rounded border">
+                <form method="post">
+                    {{ form.hidden_tag() }}
                 <div class="form-row">
-                    <!-- Date Picker - From -->
-                    <div class="form-group col-md">
-                        <label for="inputFrom">From</label>
-                        <input type="date" class="form-control" id="inputFrom">
+                        <!-- Date Picker - From -->
+                        <div class="form-group col-md">
+                            {{ form.check_in_date.label }} {{ form.check_in_date(class="form-control") }}
+                        </div>
+                        <!-- Date Picker - To -->
+                        <div class="form-group col-md">
+                            {{ form.check_out_date.label }} {{ form.check_out_date(class="form-control") }}
+                        </div>
+                        <!-- Select Picker - Room Type -->
+                        <div class="form-group col-md">
+                            {{ form.room_number.label }} {{ form.room_number(class="form-control") }}
+                        </div>
+                        <!-- Search Button -->
+                        <div class="form-group col-md-1">
+                            <label>&nbsp;</label>
+                            <button type="submit" class="btn btn-primary btn-block">
+                                <i class="fa fa-search"></i> <span class="d-md-none d-inline">Search</span>
+                            </button>
+                            
+                            {% if error %}
+                            <p class="text-danger">
+                                {{ error }}
+                            </p>
+                            {% endif %}
+                        </div>
                     </div>
-                    <!-- Date Picker - To -->
-                    <div class="form-group col-md">
-                        <label for="inputTo">To</label>
-                        <input type="date" class="form-control" id="inputTo">
-                    </div>
-                    <!-- Select Picker - Room Type -->
-                    <div class="form-group col-md">
-                        <label for="selectRoomType">Room Type</label>
-                        <select class="form-control" id="selectRoomType">
-                            <option value="single">Single Room</option>
-                            <option value="double">Double Room</option>
-                            <option value="deluxe">Deluxe Room</option>
-                        </select>
-                    </div>
-                    <!-- Search Button -->
-                    <div class="form-group col-md-1">
-                        <label>&nbsp;</label>
-                        <button type="button" class="btn btn-primary btn-block" id="searchButton">
-                            <i class="fa fa-search"></i> <span class="d-md-none d-inline">Search</span>
-                        </button>
-                    </div>
-                </div>
+                </form>
             </div>
         </section>
         <!-- Section - Our Amenities -->
