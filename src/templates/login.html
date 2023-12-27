@@ -15,40 +15,39 @@
 
 <main>
 
-<!-- Page Content -->
-<div class="container mt-4">
+    <!-- Page Content -->
+    <div class="container mt-4">
 
-    <!-- Section - Log In -->
-    <section>
-        <!-- Title -->
-        <h1 class="text-center">Log In</h1>
-        
-        <!-- Log In -->
-        <div class="bg-light p-4 mt-4 rounded border">
-            <div class="form-row">
-                <!-- Input - User -->
-                <div class="form-group col-md">
-                    <label for="inputUser">User</label>
-                    <input type="text" class="form-control" id="inputUser">
-                </div>
-                <!-- Input - Password -->
-                <div class="form-group col-md">
-                    <label for="inputPassword">Password</label>
-                    <input type="password" class="form-control" id="inputPassword">
-                </div>
-                <!-- Continue Button -->
-                <div class="form-group col-md-auto">
-                    <label>&nbsp;</label>
-                    <button type="button" class="btn btn-primary btn-block" id="continueButton" onclick="window.location.href='{{ url_for('mybookings') }}';">
-                        Continue
-                    </button>
-                </div>
+        <!-- Section - Log In -->
+        <section>
+            <!-- Title -->
+            <h1 class="text-center">Log In</h1>
+
+            <!-- Log In -->
+            <div class="bg-light p-4 mt-4 rounded border">
+                <form method="post">
+                    {{ form.hidden_tag() }}
+                    <div class="form-row">
+                        <!-- Input - User -->
+                        <div class="form-group col-md">
+                            {{ form.email.label }} {{ form.email(class="form-control") }}
+                        </div>
+                        <!-- Input - Password -->
+                        <div class="form-group col-md">
+                            {{ form.password.label }} {{ form.password(class="form-control") }}
+                        </div>
+                        <!-- Continue Button -->
+                        <div class="form-group col-md-auto">
+                            <label>&nbsp;</label>
+                            {{ form.submit(class="form-control") }}
+                        </div>
+                    </div>
+                </form>
             </div>
-        </div>
-        <br>
-        <p class="text-center"><a href="/signup">Sign Up</a></p>
-    </section>
-</div>
+            <br>
+            <p class="text-center"><a href="/signup">Sign Up</a></p>
+        </section>
+    </div>
 
 </main>
 

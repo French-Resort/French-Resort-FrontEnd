@@ -15,53 +15,49 @@
 
 <main>
 
-<!-- Page Content -->
-<div class="container mt-4">
+    <!-- Page Content -->
+    <div class="container mt-4">
 
-    <!-- Section - Sign Up -->
-    <section>
-        <!-- Title -->
-        <h1 class="text-center">Sign Up</h1>
-        
-        <!-- Sign Up -->
-        <div class="bg-light p-4 mt-4 rounded border">
-            <div class="form-row">
-                <!-- Input - FirstName -->
-                <div class="form-group col-md">
-                    <label for="inputFirstName">First Name</label>
-                    <input type="text" class="form-control" id="inputFirstName">
-                </div>
-                <!-- Input - LastName -->
-                <div class="form-group col-md">
-                    <label for="inputLastName">Last Name</label>
-                    <input type="text" class="form-control" id="inputLastName">
-                </div>
-                <!-- Input - Phone -->
-                <div class="form-group col-md">
-                    <label for="inputPhone">Phone Number</label>
-                    <input type="text" class="form-control" id="inputPhone">
-                </div>
-                <!-- Input - Email -->
-                <div class="form-group col-md">
-                    <label for="inputEmail">Email</label>
-                    <input type="text" class="form-control" id="inputEmail">
-                </div>
-                <!-- Input - Password -->
-                <div class="form-group col-md">
-                    <label for="inputPassword">Password</label>
-                    <input type="password" class="form-control" id="inputPassword">
-                </div>
-                <!-- Continue Button -->
-                <div class="form-group col-md-auto">
-                    <label>&nbsp;</label>
-                    <button type="button" class="btn btn-primary btn-block" id="continueButton">
-                        Continue
-                    </button>
-                </div>
+        <!-- Section - Sign Up -->
+        <section>
+            <!-- Title -->
+            <h1 class="text-center">Sign Up</h1>
+
+            <!-- Sign Up -->
+            <div class="bg-light p-4 mt-4 rounded border">
+                <form method="post">
+                    {{ form.hidden_tag() }}
+                    <div class="form-row">
+                        <!-- Input - FirstName -->
+                        <div class="form-group col-md">
+                            {{ form.first_name.label }} {{ form.first_name(class="form-control") }}
+                        </div>
+                        <!-- Input - LastName -->
+                        <div class="form-group col-md">
+                            {{ form.last_name.label }} {{ form.last_name(class="form-control") }}
+                        </div>
+                        <!-- Input - Phone -->
+                        <div class="form-group col-md">
+                            {{ form.phone_number.label }} {{ form.phone_number(class="form-control") }}
+                        </div>
+                        <!-- Input - Email -->
+                        <div class="form-group col-md">
+                            {{ form.email.label }} {{ form.email(class="form-control") }}
+                        </div>
+                        <!-- Input - Password -->
+                        <div class="form-group col-md">
+                            {{ form.password.label }} {{ form.password(class="form-control") }}
+                        </div>
+                        <!-- Continue Button -->
+                        <div class="form-group col-md-auto">
+                            <label>&nbsp;</label>
+                            {{ form.submit(class="form-control") }}
+                        </div>
+                    </div>
+                </form>
             </div>
-        </div>
-    </section>
-</div>
+        </section>
+    </div>
 </main>
 
 

@@ -25,7 +25,7 @@
             <div class="bg-light p-4 mt-4 rounded border">
                 <form method="post">
                     {{ form.hidden_tag() }}
-                <div class="form-row">
+                    <div class="form-row">
                         <!-- Date Picker - From -->
                         <div class="form-group col-md">
                             {{ form.check_in_date.label }} {{ form.check_in_date(class="form-control") }}
@@ -42,9 +42,10 @@
                         <div class="form-group col-md-auto">
                             <label>&nbsp;</label>
                             <button type="submit" class="btn btn-primary btn-block">
-                                <span class="d-md-none d-inline font-weight-bold">Book Now &nbsp;&nbsp;</span><i class="fa fa-check"></i>
+                                <span class="d-md-none d-inline font-weight-bold">Book Now &nbsp;&nbsp;</span><i
+                                    class="fa fa-check"></i>
                             </button>
-                            
+
                             {% if error %}
                             <p class="text-danger">
                                 {{ error }}
@@ -55,7 +56,7 @@
                 </form>
             </div>
         </section>
-        
+
         <!-- Section - Our Hotel Rooms -->
         <section class="mt-5">
             <!-- Title -->
@@ -184,5 +185,6 @@
 
     </div>
 </main>
+
 
 {% include 'includes/footer.html' %}
