@@ -34,9 +34,9 @@ def index():
 def login():
     return render_template('login.html')
 
-@app.route('/signin')
+@app.route('/signup')
 def signin():
-    return render_template('signin.html')
+    return render_template('signup.html')
 
 @app.route('/mybookings')
 def mybookings():
