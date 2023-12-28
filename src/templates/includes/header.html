@@ -25,3 +25,29 @@
 </head>
 
 <body>
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">French Resort </a>
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link active" href="/">Home</a>
+        </li>
+        {% if session['id_guest'] %}
+        <li class="nav-item">
+            <a class="nav-link" href="/mybookings">My bookings</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+        </li>
+        {% endif %}
+        
+        <li class="nav-item m-auto">
+            {% if session['id_guest'] %} <span class="badge badge-success">Connected</span>{% else %} <span class="badge badge-danger">Disconnected</span> {% endif %}
+        </li>
+    </ul>
+</nav>

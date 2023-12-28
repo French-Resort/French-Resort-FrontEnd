@@ -1,17 +1,6 @@
 {% include 'includes/header.html' %}
 
-<!-- Navigation Bar -->
-<nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">French Resort</a>
-    <ul class="nav">
-        <li class="nav-item">
-            <a class="nav-link active" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
-        </li>
-    </ul>
-</nav>
+
 <main>
 
     <!-- Page Content -->
@@ -23,7 +12,7 @@
             <h1 class="text-center">BOOK NOW</h1>
             <!-- Gray Box with Inputs -->
             <div class="bg-light p-4 mt-4 rounded border">
-                <form method="post">
+                <form method="post" onsubmit="confirm('Confirmez ?')">
                     {{ form.hidden_tag() }}
                     <div class="form-row">
                         <!-- Date Picker - From -->
@@ -38,21 +27,24 @@
                         <div class="form-group col-md">
                             {{ form.room_number.label }} {{ form.room_number(class="form-control") }}
                         </div>
-                        <!-- Search Button -->
+                        <!-- Book Button -->
                         <div class="form-group col-md-auto">
                             <label>&nbsp;</label>
                             <button type="submit" class="btn btn-primary btn-block">
                                 <span class="d-md-none d-inline font-weight-bold">Book Now &nbsp;&nbsp;</span><i
                                     class="fa fa-check"></i>
                             </button>
-
-                            {% if error %}
-                            <p class="text-danger">
-                                {{ error }}
-                            </p>
-                            {% endif %}
                         </div>
                     </div>
+
+                    {% if error %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ error }} {% if error == "You are not connected !" %} <a href="/login">Log In</a>{% endif %}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% endif %}
                 </form>
             </div>
         </section>
@@ -185,6 +177,5 @@
 
     </div>
 </main>
-
 
 {% include 'includes/footer.html' %}
