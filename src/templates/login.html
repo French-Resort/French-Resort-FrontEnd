@@ -1,51 +1,50 @@
 {% include 'includes/header.html' %}
 
-
 <main>
-
-    <!-- Page Content -->
     <div class="container mt-4">
 
         <!-- Section - Log In -->
         <section>
-            <!-- Title -->
-            <h1 class="text-center">Log In</h1>
 
             <!-- Log In -->
-            <div class="bg-light p-4 mt-4 rounded border">
+            <div class="bg-secondary border rounded col-xl-5 col-lg-6 col-md-8 col-sm-12 mt-4 mx-auto p-4">
+                <!-- Title -->
+                <h1 class="text-center">Log in or sign up</h1>
+                
+                <hr>
+                <br>
+                <h5>Welcome to French Resort !</h5>
                 <form method="post">
                     {{ form.hidden_tag() }}
-                    <div class="form-row">
+                    <div class="row g-3">
                         <!-- Input - User -->
-                        <div class="form-group col-md">
-                            {{ form.email.label }} {{ form.email(class="form-control") }}
+                        <div class="col-12 mb-3">
+                            {{ form.email.label }} {{ form.email(class="form-control", placeholder="Enter your email address") }}
                         </div>
                         <!-- Input - Password -->
-                        <div class="form-group col-md">
-                            {{ form.password.label }} {{ form.password(class="form-control") }}
+                        <div class="col-12 mb-3">
+                            {{ form.password.label }} {{ form.password(class="form-control", placeholder="Enter your password") }}
                         </div>
                         <!-- Continue Button -->
-                        <div class="form-group col-md-auto">
-                            <label>&nbsp;</label>
-                            {{ form.submit(class="form-control") }}
+                        <div class="col-12">
+                            {{ form.submit(class="btn btn-success w-100 btn-lg fw-bold") }}
                         </div>
                     </div>
-                    
+
                     {% if error %}
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
                         {{ error }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                     {% endif %}
                 </form>
+                <hr class="my-4">
+                <p class="text-center">
+                    <a href="/signup" class="btn btn-outline-light btn-sm d-block">Sign Up</a>
+                </p>
             </div>
-            <br>
-            <p class="text-center"><a href="/signup">Sign Up</a></p>
         </section>
     </div>
-
 </main>
 
 {% include 'includes/footer.html' %}

@@ -1,36 +1,34 @@
 {% include 'includes/header.html' %}
 
-
 <main>
-
     <!-- Page Content -->
     <div class="container mt-4">
 
         <!-- Section - Title and Inputs -->
         <section>
             <!-- Title -->
-            <h1 class="text-center">BOOK NOW</h1>
+            <!-- <h1 class="text-center">BOOK NOW</h1> -->
             <!-- Gray Box with Inputs -->
-            <div class="bg-light p-4 mt-4 rounded border">
-                <form method="post" onsubmit="confirm('Confirmez ?')">
+            <div class="bg-secondary p-4 mt-4 rounded border">
+                <form method="post" onsubmit='return confirm("Would you like to confirm your booking for this room?\n___________________________\nWe will check its availability for you.");'>
                     {{ form.hidden_tag() }}
-                    <div class="form-row">
+                    <div class="row g-3">
                         <!-- Date Picker - From -->
-                        <div class="form-group col-md">
+                        <div class="col-md form-group">
                             {{ form.check_in_date.label }} {{ form.check_in_date(class="form-control") }}
                         </div>
                         <!-- Date Picker - To -->
-                        <div class="form-group col-md">
+                        <div class="col-md form-group">
                             {{ form.check_out_date.label }} {{ form.check_out_date(class="form-control") }}
                         </div>
                         <!-- Select Picker - Room Type -->
-                        <div class="form-group col-md">
-                            {{ form.room_number.label }} {{ form.room_number(class="form-control") }}
+                        <div class="col-md form-group">
+                            {{ form.room_number.label }} {{ form.room_number(class="form-select") }}
                         </div>
                         <!-- Book Button -->
-                        <div class="form-group col-md-auto">
+                        <div class="col-md-auto form-group">
                             <label>&nbsp;</label>
-                            <button type="submit" class="btn btn-primary btn-block">
+                            <button type="submit" class="btn btn-success d-block w-100 fw-bold">
                                 <span class="d-md-none d-inline font-weight-bold">Book Now &nbsp;&nbsp;</span><i
                                     class="fa fa-check"></i>
                             </button>
@@ -40,43 +38,10 @@
                     {% if error %}
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         {{ error }} {% if error == "You are not connected !" %} <a href="/login">Log In</a>{% endif %}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     {% endif %}
                 </form>
-            </div>
-        </section>
-
-        <!-- Section - Our Hotel Rooms -->
-        <section class="mt-5">
-            <!-- Title -->
-            <h3 class="text-left">Our Hotel Rooms</h3>
-
-            <!-- Hotel Rooms Boxes -->
-            <div class="row mt-4">
-                <!-- Hotel Room Box 1 -->
-                <div class="col-md-4">
-                    <div class="rounded p-3 bg-light text-center">
-                        <img src="https://via.placeholder.com/200x100" class="img-fluid rounded mb-3" alt="Single Room">
-                        <p>Room 1 Single Room</p>
-                    </div>
-                </div>
-                <!-- Hotel Room Box 2 -->
-                <div class="col-md-4">
-                    <div class="rounded p-3 bg-light text-center">
-                        <img src="https://via.placeholder.com/200x100" class="img-fluid rounded mb-3" alt="Double Room">
-                        <p>Room 2 Double Room</p>
-                    </div>
-                </div>
-                <!-- Hotel Room Box 3 -->
-                <div class="col-md-4">
-                    <div class="rounded p-3 bg-light text-center">
-                        <img src="https://via.placeholder.com/200x100" class="img-fluid rounded mb-3" alt="Deluxe Room">
-                        <p>Room 3 Deluxe Room</p>
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -111,7 +76,6 @@
             </div>
         </section>
 
-
         <!-- Section - Our Services -->
         <section class="mt-5">
             <!-- Title -->
@@ -143,7 +107,6 @@
             </div>
         </section>
 
-
         <!-- Section - Blue Rectangles with Buttons -->
         <section class="mt-5">
             <!-- Title -->
@@ -174,7 +137,6 @@
                 </div>
             </div>
         </section>
-
     </div>
 </main>
 

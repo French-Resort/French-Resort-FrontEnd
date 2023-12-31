@@ -34,8 +34,8 @@ def book_room(id_guest, id_room, check_in_date, check_out_date):
 
     except requests.exceptions.RequestException as err:
         # Print additional details about the error if available
-        # print(f"Response content: {response.content}")
-        error_message = f"Error: {err}"
+        print(f"Response content: {response.json()}")
+        error_message = f"Error: {response.json()['error']}"
         return {"success": False, "error": error_message}
     
 def cancel_room(id_booking):
@@ -48,10 +48,10 @@ def cancel_room(id_booking):
         result = response.json()
         return {"success": True, "data": result}
 
-    except requests.exceptions.RequestException as err:
+    except:
         # Print additional details about the error if available
-        # print(f"Response content: {response.content}")
-        error_message = f"Error: {err}"
+        print(f"Response content: {response.json()}")
+        error_message = f"Error: {response.json()['error']}"
         return {"success": False, "error": error_message}
         
 def sign_up(email, password, last_name, first_name, phone_number):
@@ -73,10 +73,9 @@ def sign_up(email, password, last_name, first_name, phone_number):
         result = response.json()
         return {"success": True, "data": result}
 
-    except requests.exceptions.RequestException as err:
-        # Print additional details about the error if available
-        # print(f"Response content: {response.content}")
-        error_message = f"Error: {err}"
+    except:
+        print(f"Response content: {response.json()}")
+        error_message = f"Error: {response.json()['error']}"
         return {"success": False, "error": error_message}
         
 def log_in(email, password):
@@ -95,14 +94,30 @@ def log_in(email, password):
         result = response.json()
         return {"success": True, "data": result}
 
+    except:
+        print(f"Response content: {response.json()}")
+        error_message = f"Error: {response.json()['error']}"
+        return {"success": False, "error": error_message}
+        
+def get_bookings(id_guest):
+    url = f"http://localhost:5001/api/bookings/{id_guest}"
+    headers = {"Content-Type": "application/json"}
+    
+    try:
+        response = requests.get(url, headers=headers)  # Use json parameter for JSON data
+        response.raise_for_status()  # Raise an error for bad responses (4xx or 5xx)
+
+        result = response.json()
+        return {"success": True, "data": result}
+
     except requests.exceptions.RequestException as err:
         # Print additional details about the error if available
         # print(f"Response content: {response.content}")
         error_message = f"Error: {err}"
         return {"success": False, "error": error_message}
-        
-def get_bookings(id_guest):
-    url = f"http://localhost:5001/api/bookings/{id_guest}"
+            
+def get_rooms():
+    url = f"http://localhost:5001/api/rooms"
     headers = {"Content-Type": "application/json"}
     
     try:

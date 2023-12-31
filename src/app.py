@@ -2,20 +2,18 @@ from flask import Flask, render_template, request, jsonify, redirect, url_for, s
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, DateField, SelectField, EmailField
 from wtforms.widgets import PasswordInput
-from wtforms.validators import DataRequired, ValidationError, InputRequired, Email, Length, Regexp
+from wtforms.validators import DataRequired, Length, Regexp
 from datetime import datetime
-from markupsafe import Markup
-import html
 from bdd_requests import *
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'YourSecretKey'
 
-rooms = [
-    ('100', 'Single Room'),
-    ('101', 'Double Room'),
-    ('102', 'Deluxe Room')
-]
+
+rooms = [(room['id_room'], f"{room['room_type']} - {room['price_per_night'][:-3]} NTD/night ({room['max_guests']} p. max)") for room in get_rooms()['data']]
+
+date = datetime.now()
+
 
 
 class BookingForm(FlaskForm):
@@ -29,16 +27,17 @@ class SignUpForm(FlaskForm):
     last_name = StringField('Last Name', validators=[DataRequired()])
     first_name = StringField('First Name', validators=[DataRequired()])
     phone_number = StringField('Phone', validators=[DataRequired(), Length(min=10, max=10), Regexp(regex='^[0-9]+$')])
-    submit = SubmitField('Sign Up')
+    submit = SubmitField('Sign in')
     
 class LogInForm(FlaskForm):
     email = EmailField('Email', validators=[DataRequired()])
     password = StringField('Password', widget=PasswordInput(), validators=[DataRequired()])
-    submit = SubmitField('Log In')
+    submit = SubmitField('Log in')
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    session['date'] = date.strftime("%Y-%m-%d")
     form=BookingForm()
     if form.validate_on_submit():
             
@@ -99,5 +98,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    bdd_init()
     app.run(host='localhost', port=5000, debug=True)
