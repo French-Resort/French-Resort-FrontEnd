@@ -36,8 +36,9 @@
                     </div>
 
                     {% if error %}
+                    <br>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        {{ error }} {% if error == "You are not connected !" %} <a href="/login">Log In</a>{% endif %}
+                        {{ error }} {% if error == "You are not connected !" %} <a class="text-secondary" href="/login">Log in</a>{% endif %}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     {% endif %}

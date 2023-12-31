@@ -14,8 +14,6 @@ rooms = [(room['id_room'], f"{room['room_type']} - {room['price_per_night'][:-3]
 
 date = datetime.now()
 
-
-
 class BookingForm(FlaskForm):
     room_number = SelectField('Room Number', choices=rooms, validators=[DataRequired()])
     check_in_date = DateField('Check-In Date', format='%Y-%m-%d', validators=[DataRequired()])
@@ -44,10 +42,11 @@ def index():
         if form.check_in_date.data > form.check_out_date.data or form.check_in_date.data < datetime.today().date():
             return render_template('index.html', form=form, error="Check-in or Check-out date not valid !")
         
-        if session['id_guest'] == None:
+        if 'id_guest' in session:
+            response = book_room(1,form.room_number.data, form.check_in_date.data.strftime('%Y-%m-%d'), form.check_out_date.data.strftime('%Y-%m-%d'))
+        else:
             return render_template('index.html', form=form, error="You are not connected !")
-        
-        response = book_room(1,form.room_number.data, form.check_in_date.data.strftime('%Y-%m-%d'), form.check_out_date.data.strftime('%Y-%m-%d'))
+            
         if response['success']:
             return redirect(url_for('mybookings'))
         else:
