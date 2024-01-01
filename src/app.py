@@ -10,7 +10,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'YourSecretKey'
 
 
-rooms = [(room['id_room'], f"{room['room_type']} - {room['price_per_night'][:-3]} NTD/night ({room['max_guests']} p. max)") for room in get_rooms()['data']]
+rooms = [(room['id_room'], f"{room['room_type']} - {room['price_per_night'][:-3]} NTD/night ({room['max_guests']} p. max)") for room in get_rooms()['data']] if get_rooms()['success'] else []
+
 
 date = datetime.now()
 
@@ -31,6 +32,15 @@ class LogInForm(FlaskForm):
     email = EmailField('Email', validators=[DataRequired()])
     password = StringField('Password', widget=PasswordInput(), validators=[DataRequired()])
     submit = SubmitField('Log in')
+
+# def error():
+#     response = get_rooms()
+#     if not response['success']:
+#         raise Exception(response['error'])
+
+# @app.errorhandler(500)
+# def handle_error(e):
+#     return render_template('404.html', error=str(e)), 500
 
 
 @app.route('/', methods=['GET', 'POST'])
