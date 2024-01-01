@@ -1,7 +1,8 @@
 import requests
+import os
 
 def bdd_init():
-    url = "http://localhost:5001/api/db_init"
+    url = f"{os.getenv('API_HOST_URL', default='http://localhost:5001')}/api/db_init"
     headers = {"Content-Type": "application/json"}
 
     try:
@@ -16,7 +17,7 @@ def bdd_init():
         
 
 def book_room(id_guest, id_room, check_in_date, check_out_date):
-    url = "http://localhost:5001/api/booking"
+    url = f"{os.getenv('API_HOST_URL', default='http://localhost:5001')}/api/booking"
     headers = {"Content-Type": "application/json"}
     data = {
         "check_in_date": check_in_date,
@@ -39,7 +40,7 @@ def book_room(id_guest, id_room, check_in_date, check_out_date):
         return {"success": False, "error": error_message}
     
 def cancel_room(id_booking):
-    url = f"http://localhost:5001/api/booking/{id_booking}"
+    url = f"{os.getenv('API_HOST_URL', default='http://localhost:5001')}/api/booking/{id_booking}"
 
     try:
         response = requests.delete(url)  # Use json parameter for JSON data
@@ -55,7 +56,7 @@ def cancel_room(id_booking):
         return {"success": False, "error": error_message}
         
 def sign_up(email, password, last_name, first_name, phone_number):
-    url = "http://localhost:5001/api/signup"
+    url = f"{os.getenv('API_HOST_URL', default='http://localhost:5001')}/api/signup"
     headers = {"Content-Type": "application/json"}
     
     data = {
@@ -79,7 +80,7 @@ def sign_up(email, password, last_name, first_name, phone_number):
         return {"success": False, "error": error_message}
         
 def log_in(email, password):
-    url = "http://localhost:5001/api/login"
+    url = f"{os.getenv('API_HOST_URL', default='http://localhost:5001')}/api/login"
     headers = {"Content-Type": "application/json"}
     
     data = {
@@ -100,7 +101,7 @@ def log_in(email, password):
         return {"success": False, "error": error_message}
         
 def get_bookings(id_guest):
-    url = f"http://localhost:5001/api/bookings/{id_guest}"
+    url = f"{os.getenv('API_HOST_URL', default='http://localhost:5001')}/api/bookings/{id_guest}"
     headers = {"Content-Type": "application/json"}
     
     try:
@@ -117,7 +118,7 @@ def get_bookings(id_guest):
         return {"success": False, "error": error_message}
             
 def get_rooms():
-    url = f"http://localhost:5001/api/rooms"
+    url = f"{os.getenv('API_HOST_URL', default='http://localhost:5001')}/api/rooms"
     headers = {"Content-Type": "application/json"}
     
     try:
