@@ -1,21 +1,6 @@
 import requests
 import os
 
-def bdd_init():
-    url = f"{os.getenv('API_HOST_URL', default='http://localhost:5001')}/api/db_init"
-    headers = {"Content-Type": "application/json"}
-
-    try:
-        response = requests.post(url, headers=headers)
-        response.raise_for_status()  # Raise an error for bad responses (4xx or 5xx)
-
-        result = response.json()
-        print(result)
-
-    except requests.exceptions.RequestException as err:
-        print(f"Error: {err}")
-        
-
 def book_room(id_guest, id_room, check_in_date, check_out_date):
     url = f"{os.getenv('API_HOST_URL', default='http://localhost:5001')}/api/booking"
     headers = {"Content-Type": "application/json"}

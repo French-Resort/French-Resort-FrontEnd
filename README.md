@@ -1,8 +1,5 @@
 # French-Resort-FrontEnd
 
-conda create -n french_resort python=3.11
-conda activate french_resort 
+conda create -n frenchResortFrontEnd python=3.11
+conda activate frenchResortFrontEnd 
 pip install -r requirements.txt
-
-
-python -c "from bdd_requests import bdd_init; bdd_init()"
