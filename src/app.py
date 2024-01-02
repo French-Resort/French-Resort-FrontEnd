@@ -53,7 +53,7 @@ def index():
             return render_template('index.html', form=form, error="Check-in or Check-out date not valid !")
         
         if 'id_guest' in session:
-            response = book_room(1,form.room_number.data, form.check_in_date.data.strftime('%Y-%m-%d'), form.check_out_date.data.strftime('%Y-%m-%d'))
+            response = book_room(session['id_guest'],form.room_number.data, form.check_in_date.data.strftime('%Y-%m-%d'), form.check_out_date.data.strftime('%Y-%m-%d'))
         else:
             return render_template('index.html', form=form, error="You are not connected !")
             
@@ -72,6 +72,7 @@ def login():
         # print(response['data'])
         if response['success']:
             session['id_guest'] = response['data']['id_guest'] 
+            print(f"id_guest : {session['id_guest']}")
             return redirect(url_for('index'))
         else:
             return render_template('login.html', form=form, error=response['error'])
