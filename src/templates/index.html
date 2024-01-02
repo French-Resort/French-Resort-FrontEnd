@@ -1,13 +1,37 @@
 {% include 'includes/header.html' %}
 
+{% macro render_carousel(carousel_id, images) %}
+    <div id="{{ carousel_id }}" class="carousel slide rounded" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            {% for i in range(0, images|length) %}
+                <button type="button" data-bs-target="#{{ carousel_id }}" data-bs-slide-to="{{ i }}"
+                        {% if i == 0 %}class="active"{% endif %} aria-label="Slide {{ i + 1 }}"></button>
+            {% endfor %}
+        </div>
+        <div class="carousel-inner">
+            {% for i in range(0, images|length) %}
+                <div class="carousel-item {% if i == 0 %}active{% endif %}" data-bs-interval="4000">
+                    <img src="{{ url_for('static', filename=images[i]) }}" class="d-block w-100 rounded" alt="room">
+                </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#{{ carousel_id }}" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#{{ carousel_id }}" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+{% endmacro %}
+
 <main>
     <!-- Page Content -->
     <div class="container mt-4">
 
         <!-- Section - Title and Inputs -->
         <section>
-            <!-- Title -->
-            <!-- <h1 class="text-center">BOOK NOW</h1> -->
             <!-- Gray Box with Inputs -->
             <div class="bg-secondary p-4 mt-4 rounded border">
                 <form method="post" onsubmit='return confirm("Would you like to confirm your booking for this room?\n___________________________\nWe will check its availability for you.");'>
@@ -56,168 +80,21 @@
                 <!-- Room Box 1 -->
                 <div class="col-md-4">
                     <div class="rounded p-3 text-center">
-                        <div id="carouselSimple" class="carousel slide rounded" data-bs-ride="carousel">
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselSimple" data-bs-slide-to="0" class="active"
-                                    aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#carouselSimple" data-bs-slide-to="1"
-                                    aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#carouselSimple" data-bs-slide-to="2"
-                                    aria-label="Slide 3"></button>
-                                <button type="button" data-bs-target="#carouselDeluxe" data-bs-slide-to="3"
-                                    aria-label="Slide 4"></button>
-                                <button type="button" data-bs-target="#carouselDeluxe" data-bs-slide-to="4"
-                                    aria-label="Slide 5"></button>
-                                <button type="button" data-bs-target="#carouselDeluxe" data-bs-slide-to="5"
-                                    aria-label="Slide 6"></button>
-                            </div>
-                            <div class="carousel-inner">
-                                <div class="carousel-item active" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/simple_1.png') }}"
-                                        class="d-block w-100 rounded" alt="room">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/simple_2.png') }}"
-                                        class="d-block w-100 rounded" alt="room">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/simple_3.png') }}"
-                                        class="d-block w-100 rounded" alt="room">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/simple_4.png') }}"
-                                        class="d-block w-100 rounded" alt="room">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/simple_5.png') }}"
-                                        class="d-block w-100 rounded" alt="room">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/simple_6.png') }}"
-                                        class="d-block w-100 rounded" alt="room">
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselSimple" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselSimple" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
+                        {{ render_carousel("carouselSimple", ['images/simple_1.png', 'images/simple_2.png', 'images/simple_3.png', 'images/simple_4.png', 'images/simple_5.png', 'images/simple_6.png']) }}
                         <p>Simple Room</p>
                     </div>
                 </div>
                 <!-- Room Box 2 -->
                 <div class="col-md-4">
                     <div class="rounded p-3 text-center">
-                        <div id="carouselDouble" class="carousel slide rounded" data-bs-ride="carousel">
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselDouble" data-bs-slide-to="0" class="active"
-                                    aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#carouselDouble" data-bs-slide-to="1"
-                                    aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#carouselDouble" data-bs-slide-to="2"
-                                    aria-label="Slide 3"></button>
-                                <button type="button" data-bs-target="#carouselDeluxe" data-bs-slide-to="3"
-                                    aria-label="Slide 4"></button>
-                                <button type="button" data-bs-target="#carouselDeluxe" data-bs-slide-to="4"
-                                    aria-label="Slide 5"></button>
-                                <button type="button" data-bs-target="#carouselDeluxe" data-bs-slide-to="5"
-                                    aria-label="Slide 6"></button>
-                            </div>
-                            <div class="carousel-inner">
-                                <div class="carousel-item active" data-bs-interval="6000">
-                                    <img src="{{ url_for('static', filename='images/double_1.png') }}"
-                                        class="d-block w-100 rounded" alt="room">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/double_2.png') }}"
-                                        class="d-block w-100 rounded" alt="room">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/double_3.png') }}"
-                                        class="d-block w-100 rounded" alt="room">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/double_4.png') }}"
-                                        class="d-block w-100 rounded" alt="room">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/double_5.png') }}"
-                                        class="d-block w-100 rounded" alt="room">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/double_6.png') }}"
-                                        class="d-block w-100 rounded" alt="room">
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselDouble" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselDouble" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
+                        {{ render_carousel("carouselDouble", ['images/double_1.png', 'images/double_2.png', 'images/double_3.png', 'images/double_4.png', 'images/double_5.png', 'images/double_6.png']) }}
                         <p>Double Room</p>
                     </div>
                 </div>
                 <!-- Room Box 3 -->
                 <div class="col-md-4">
                     <div class="rounded p-3 text-center">
-                        <div id="carouselDeluxe" class="carousel slide rounded" data-bs-ride="carousel">
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselDeluxe" data-bs-slide-to="0" class="active"
-                                    aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#carouselDeluxe" data-bs-slide-to="1"
-                                    aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#carouselDeluxe" data-bs-slide-to="2"
-                                    aria-label="Slide 3"></button>
-                                <button type="button" data-bs-target="#carouselDeluxe" data-bs-slide-to="3"
-                                    aria-label="Slide 4"></button>
-                                <button type="button" data-bs-target="#carouselDeluxe" data-bs-slide-to="4"
-                                    aria-label="Slide 5"></button>
-                                <button type="button" data-bs-target="#carouselDeluxe" data-bs-slide-to="5"
-                                    aria-label="Slide 6"></button>
-                            </div>
-                            <div class="carousel-inner">
-                                <div class="carousel-item active" data-bs-interval="8000">
-                                    <img src="{{ url_for('static', filename='images/deluxe_1.png') }}"
-                                        class="d-block w-100 rounded" alt="room">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/deluxe_2.png') }}"
-                                        class="d-block w-100 rounded" alt="room">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/deluxe_3.png') }}"
-                                        class="d-block w-100 rounded" alt="room">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/deluxe_4.png') }}"
-                                        class="d-block w-100 rounded" alt="room">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/deluxe_5.png') }}"
-                                        class="d-block w-100 rounded" alt="room">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/deluxe_6.png') }}"
-                                        class="d-block w-100 rounded" alt="room">
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselDeluxe" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselDeluxe" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
+                        {{ render_carousel("carouselDeluxe", ['images/deluxe_1.png', 'images/deluxe_2.png', 'images/deluxe_3.png', 'images/deluxe_4.png', 'images/deluxe_5.png', 'images/deluxe_6.png']) }}
                         <p>Deluxe Room</p>
                     </div>
                 </div>
@@ -234,114 +111,21 @@
                 <!-- Amenity Box 1 -->
                 <div class="col-md-4">
                     <div class="rounded p-3 text-center">
-                        <div id="carouselRestaurant" class="carousel slide rounded" data-bs-ride="carousel">
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselRestaurant" data-bs-slide-to="0" class="active"
-                                    aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#carouselRestaurant" data-bs-slide-to="1"
-                                    aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#carouselRestaurant" data-bs-slide-to="2"
-                                    aria-label="Slide 3"></button>
-                            </div>
-                            <div class="carousel-inner">
-                                <div class="carousel-item active" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/restaurant_1.png') }}"
-                                        class="d-block w-100 rounded" alt="restaurant_1">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/restaurant_2.png') }}"
-                                        class="d-block w-100 rounded" alt="restaurant_2">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/restaurant_3.png') }}"
-                                        class="d-block w-100 rounded" alt="restaurant_3">
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselRestaurant" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselRestaurant" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
+                        {{ render_carousel("carouselRestaurant", ['images/restaurant_1.png', 'images/restaurant_2.png', 'images/restaurant_3.png']) }}
                         <p>Restaurant</p>
                     </div>
                 </div>
                 <!-- Amenity Box 2 -->
                 <div class="col-md-4">
                     <div class="rounded p-3 text-center">
-                        <div id="carouselFitness" class="carousel slide rounded" data-bs-ride="carousel">
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselFitness" data-bs-slide-to="0" class="active"
-                                    aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#carouselFitness" data-bs-slide-to="1"
-                                    aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#carouselFitness" data-bs-slide-to="2"
-                                    aria-label="Slide 3"></button>
-                            </div>
-                            <div class="carousel-inner">
-                                <div class="carousel-item active" data-bs-interval="6000">
-                                    <img src="{{ url_for('static', filename='images/fitness_1.png') }}"
-                                        class="d-block w-100 rounded" alt="fitness_1">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/fitness_2.png') }}"
-                                        class="d-block w-100 rounded" alt="fitness_2">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/fitness_3.png') }}"
-                                        class="d-block w-100 rounded" alt="fitness_3">
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselFitness" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselFitness" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
+                        {{ render_carousel("carouselFitness", ['images/fitness_1.png', 'images/fitness_2.png', 'images/fitness_3.png']) }}
                         <p>Fitness Studio</p>
                     </div>
                 </div>
                 <!-- Amenity Box 3 -->
                 <div class="col-md-4">
                     <div class="rounded p-3 text-center">
-                        <div id="carouselRelax" class="carousel slide rounded" data-bs-ride="carousel">
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselRelax" data-bs-slide-to="0" class="active"
-                                    aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#carouselRelax" data-bs-slide-to="1"
-                                    aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#carouselRelax" data-bs-slide-to="2"
-                                    aria-label="Slide 3"></button>
-                            </div>
-                            <div class="carousel-inner">
-                                <div class="carousel-item active" data-bs-interval="8000">
-                                    <img src="{{ url_for('static', filename='images/relax_1.png') }}"
-                                        class="d-block w-100 rounded" alt="relax_1">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/relax_2.png') }}"
-                                        class="d-block w-100 rounded" alt="relax_2">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="4000">
-                                    <img src="{{ url_for('static', filename='images/relax_3.png') }}"
-                                        class="d-block w-100 rounded" alt="relax_3">
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselRelax" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselRelax" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
+                        {{ render_carousel("carouselRelax", ['images/relax_1.png', 'images/relax_2.png', 'images/relax_3.png']) }}
                         <p>Relaxation Area</p>
                     </div>
                 </div>

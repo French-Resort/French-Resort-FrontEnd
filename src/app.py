@@ -24,7 +24,7 @@ class BookingForm(FlaskForm):
     - check_in_date (DateField): Field for entering the check-in date.
     - check_out_date (DateField): Field for entering the check-out date.
     """
-    room_number = SelectField('Room Number', choices=rooms, validators=[DataRequired()])
+    room_number = SelectField('Room Choices', choices=rooms, validators=[DataRequired()])
     check_in_date = DateField('Check-In Date', format='%Y-%m-%d', validators=[DataRequired()])
     check_out_date = DateField('Check-Out Date', format='%Y-%m-%d', validators=[DataRequired()])
 
@@ -148,6 +148,10 @@ def logout():
     session.pop('id_guest', None)
     return redirect(url_for('index'))
 
+
+@app.context_processor
+def inject_now():
+    return {'now': datetime.utcnow()}
 
 if __name__ == '__main__':
     app.run(host='localhost', port=5000, debug=True)
