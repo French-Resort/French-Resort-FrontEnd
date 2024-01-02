@@ -41,9 +41,11 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid container">
-            <a class="navbar-brand fs-2 fw-bold font-monospace" href="/"><span style="color:#0D99FF;">Fren</span><span
+            <span class="navbar-brand">
+            <a class="font-monospace fs-2 fw-bold text-decoration-none" href="/"><span style="color:#0D99FF;">Fren</span><span
                     class="text-white">ch
-                    Re</span><span style="color: #ED2939;">sort</span></a>
+                    Re</span><span style="color: #ED2939;">sort</span></a>&nbsp;&nbsp;{% if session['id_guest'] %}<span class="badge bg-success">Connected</span> {% else %} <span class="badge bg-danger">Disconnected</span>{% endif %}
+            </span>        
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -61,7 +63,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link d-inline-block {% if request.path == url_for('logout') %} active {% endif %}"
-                            href="/logout">Log out</a> <span class="badge bg-success">Connected</span>
+                            href="/logout">Log out</a>
                     </li>
                     {% else %}
 
@@ -71,7 +73,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link d-inline-block {% if request.path == url_for('login') %} active {% endif %}"
-                            href="/login">Log in</a> <span class="badge bg-danger">Disconnected</span>
+                            href="/login">Log in</a>
                     </li>
                     {% endif %}
                 </ul>
