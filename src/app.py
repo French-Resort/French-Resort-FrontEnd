@@ -25,7 +25,7 @@ class SignUpForm(FlaskForm):
     last_name = StringField('Last Name', validators=[DataRequired()])
     first_name = StringField('First Name', validators=[DataRequired()])
     phone_number = StringField('Phone', validators=[DataRequired(), Length(min=10, max=10), Regexp(regex='^[0-9]+$')])
-    submit = SubmitField('Sign in')
+    submit = SubmitField('Sign up')
     
 class LogInForm(FlaskForm):
     email = EmailField('Email', validators=[DataRequired()])
