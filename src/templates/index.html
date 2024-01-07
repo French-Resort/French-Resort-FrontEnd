@@ -1,7 +1,7 @@
 {% include 'includes/header.html' %}
 
-{% macro render_carousel(carousel_id, images) %}
-    <div id="{{ carousel_id }}" class="carousel slide rounded" data-bs-ride="carousel">
+{% macro render_carousel(type, carousel_id, images) %}
+    <div id="{{ carousel_id }}" class="carousel slide {% if type=='header'%} carousel-fade " data-bs-ride="carousel"{% else %} mb-3" {% endif %}>
         <div class="carousel-indicators">
             {% for i in range(0, images|length) %}
                 <button type="button" data-bs-target="#{{ carousel_id }}" data-bs-slide-to="{{ i }}"
@@ -11,10 +11,11 @@
         <div class="carousel-inner">
             {% for i in range(0, images|length) %}
                 <div class="carousel-item {% if i == 0 %}active{% endif %}" data-bs-interval="4000">
-                    <img src="{{ url_for('static', filename=images[i]) }}" class="d-block w-100 rounded" alt="room">
+                    <img src="{{ url_for('static', filename=images[i]) }}" class="d-block w-100 {% if type=='content' %}  rounded{% endif %}" alt="room">
                 </div>
             {% endfor %}
         </div>
+        {% if type=='content' %} 
         <button class="carousel-control-prev" type="button" data-bs-target="#{{ carousel_id }}" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
@@ -23,27 +24,50 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
+        {% endif %}
     </div>
 {% endmacro %}
 
-<main>
-    <!-- Page Content -->
-    <div class="container mt-4">
+    <!-- Hotel Rooms Boxes -->
+    {{ render_carousel("header", "carouselSlide", ['images/slide_1.png', 'images/slide_2.png', 'images/slide_3.png'] ) }}
 
+    <main>
+
+       <!-- Place this at the end of the body or in the head section -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      {% if success %}
+        showConfirmation();
+      {% endif %}
+    });
+  
+    function showConfirmation() {
+      if (confirm("Congratulations! Your room reservation was successful!\n___________________________\n\nWould you like to view all your other bookings?")) {
+        window.location.href = "{{url_for('mybookings')}}";
+      }
+    }
+  </script>
+  
+        
+    <section class="p-4 bg-secondary">
+    <!-- Page Content -->
+    <div class="container">
+
+    <!-- Title -->
+    <h2 class="text-left">Book Your Dream Hotel</h2>
         <!-- Section - Title and Inputs -->
-        <section>
             <!-- Gray Box with Inputs -->
-            <div class="bg-secondary p-4 mt-4 rounded border">
-                <form method="post" onsubmit='return confirm("Would you like to confirm your booking for this room?\n___________________________\nWe will check its availability for you.");'>
+            <div class="bg-secondary p-4">
+                <form method="post"  autocomplete="off" onsubmit='return confirm("\nWould you like to confirm your booking for this room?\n___________________________\n\nWe will check its availability for you...");'>
                     {{ form.hidden_tag() }}
                     <div class="row g-3">
                         <!-- Date Picker - From -->
                         <div class="col-md form-group">
-                            {{ form.check_in_date.label }} {{ form.check_in_date(class="form-control") }}
+                            {{ form.check_in_date.label }} {{ form.check_in_date(class="form-control", placeholder="Check-in date") }}
                         </div>
                         <!-- Date Picker - To -->
                         <div class="col-md form-group">
-                            {{ form.check_out_date.label }} {{ form.check_out_date(class="form-control") }}
+                            {{ form.check_out_date.label }} {{ form.check_out_date(class="form-control", placeholder="Check-out date") }}
                         </div>
                         <!-- Select Picker - Room Type -->
                         <div class="col-md form-group">
@@ -53,8 +77,7 @@
                         <div class="col-md-auto form-group">
                             <label>&nbsp;</label>
                             <button type="submit" class="btn btn-success d-block w-100 rounded fw-bold">
-                                <span class="d-md-none d-inline font-weight-bold">Book Now &nbsp;&nbsp;</span><i
-                                    class="fa fa-check"></i>
+                                <span class="font-weight-bold">Book Now &nbsp;&nbsp;</span><i class="fa fa-check"></i>
                             </button>
                         </div>
                     </div>
@@ -68,71 +91,187 @@
                     {% endif %}
                 </form>
             </div>
-        </section>
+        <script>
+            $(document).ready(function () {
 
+                
+
+
+                $(function () {
+
+                    
+                    function updateSelectedDate(currentDatepicker){
+
+                        let check_in = $( "[name=check_in_date]" ).datepicker( "getDate" );
+                        let check_out = $( "[name=check_out_date]" ).datepicker( "getDate" );
+                        var table = $(".ui-datepicker-calendar");
+
+                        if(check_in != null || check_out != null  ){
+                            // Select the table element by its id
+
+                            // Loop through each row in the table body
+                            table.find("tbody tr").each(function() {
+                                
+                                // Loop through each cell in the current row
+                                $(this).find("td").each(function() {
+                                    let currDate = new Date($(this).attr('data-year'),  $(this).attr('data-month'),  $(this).children().attr('data-date'));
+                                    if(check_in != null){
+                                        if($(this).children().attr('data-date') == check_in.getDate() && $(this).attr('data-month') == check_in.getMonth() && $(this).attr('data-year') == check_in.getFullYear()){
+                                            $(this).children().addClass("check-in-date");
+                                        }
+                                    }
+                                    if(check_out != null){
+                                        if($(this).children().attr('data-date') == check_out.getDate() && $(this).attr('data-month') == check_out.getMonth() && $(this).attr('data-year') == check_out.getFullYear()){
+                                            $(this).children().addClass("check-out-date");
+                                        }
+                                    }
+                                    if(check_in != null && check_out != null ){
+
+                                        if(Date.parse(currentDatepicker) == Date.parse(check_in) && $(this).attr('data-month') <= check_out.getMonth() && $(this).attr('data-year') <= check_out.getFullYear()){
+                                        
+                                            if(Date.parse(currDate) > Date.parse(check_in) && Date.parse(currDate) < Date.parse(check_out)){
+                                                $(this).children().addClass('between');
+                                            }
+                                        }
+                                        if(Date.parse(currentDatepicker) == Date.parse(check_out) && $(this).attr('data-month') >= check_in.getMonth() && $(this).attr('data-year') >= check_in.getFullYear()){
+                                            
+                                            if(Date.parse(currDate) > Date.parse(check_in) && Date.parse(currDate) < Date.parse(check_out)){
+                                                $(this).children().addClass('between');
+                                            }
+
+                                        }
+                                    }
+                                    
+                                });
+                            });
+                        }
+
+                        }
+
+                    
+                    let sessionDate = "{{ session['date'] }}";
+                    let check_in_date = "";
+                    let check_out_date = "";
+                    let lastDatepickerClicked = "";
+
+                    $('[name=check_in_date], [name=check_out_date]').datepicker({
+                        dateFormat: "yy-mm-dd",
+                        minDate: sessionDate
+                    });
+
+                    $('[name=check_in_date], [name=check_out_date]').on('click',function(){
+                        lastDatepickerClicked = $(this).attr("name");
+                        updateSelectedDate($(this).datepicker("getDate"));
+                    });
+
+                    $('[name=check_in_date]').change(function(){
+                        check_in_date = new Date(this.value);
+                        $( "[name=check_out_date]" ).datepicker( "option", "minDate", check_in_date );
+                        updateSelectedDate($(this).datepicker("getDate"));
+
+                    });
+                    $('[name=check_out_date]').change(function(){
+                        check_out_date = new Date(this.value);
+                        $( "[name=check_in_date]" ).datepicker( "option", "maxDate", check_out_date );
+                        updateSelectedDate($(this).datepicker("getDate"));
+                    });
+
+                    
+                    $(document).on('click', '.ui-datepicker-next', function () {
+                        console.log('next');  
+                        updateSelectedDate($("[name="+lastDatepickerClicked+"]").datepicker("getDate"));
+                    })
+
+                    $(document).on('click', '.ui-datepicker-prev', function () {
+                        console.log('prev');  
+                        updateSelectedDate($("[name="+lastDatepickerClicked+"]").datepicker("getDate"));
+                    })
+
+                });
+
+            })
+        </script>
         <!-- Section - Our Hotel -->
-        <section class="mt-5">
-            <!-- Title -->
-            <h3 class="text-left">Our Hotel Room</h3>
+        
+    </section>
+<section class="p-4">
+    <div class="container">
 
-            <!-- Hotel Rooms Boxes -->
-            <div class="row mt-4">
-                <!-- Room Box 1 -->
-                <div class="col-md-4">
-                    <div class="rounded p-3 text-center">
-                        {{ render_carousel("carouselSimple", ['images/simple_1.png', 'images/simple_2.png', 'images/simple_3.png', 'images/simple_4.png', 'images/simple_5.png', 'images/simple_6.png']) }}
-                        <p>Simple Room</p>
-                    </div>
-                </div>
-                <!-- Room Box 2 -->
-                <div class="col-md-4">
-                    <div class="rounded p-3 text-center">
-                        {{ render_carousel("carouselDouble", ['images/double_1.png', 'images/double_2.png', 'images/double_3.png', 'images/double_4.png', 'images/double_5.png', 'images/double_6.png']) }}
-                        <p>Double Room</p>
-                    </div>
-                </div>
-                <!-- Room Box 3 -->
-                <div class="col-md-4">
-                    <div class="rounded p-3 text-center">
-                        {{ render_carousel("carouselDeluxe", ['images/deluxe_1.png', 'images/deluxe_2.png', 'images/deluxe_3.png', 'images/deluxe_4.png', 'images/deluxe_5.png', 'images/deluxe_6.png']) }}
-                        <p>Deluxe Room</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- Title -->
+    <h2>Discover Our Comfortable & Elegant Rooms</h2>
+  
+    <!-- Hotel Rooms Boxes -->
+    <div class="row mt-4">
+      <!-- Room Box 1 -->
+      <div class="col-md-4">
+        <div class="rounded p-3">
+          {{ render_carousel("content", "carouselSimple", ['images/simple_1.png', 'images/simple_2.png', 'images/simple_3.png', 'images/simple_4.png', 'images/simple_5.png', 'images/simple_6.png'])}}
+          <h5><strong>Single Room</strong></h5>
+          <p>A cozy and comfortable room with a double bed, a desk, a TV, and a private bathroom.<br>&nbsp;</p><hr>
+          <strong>1000 NTD</strong>/night
+        </div>
+      </div>
+      <!-- Room Box 2 -->
+      <div class="col-md-4">
+        <div class="rounded p-3">
+          {{ render_carousel("content", "carouselDouble", ['images/double_1.png', 'images/double_2.png', 'images/double_3.png', 'images/double_4.png', 'images/double_5.png', 'images/double_6.png']) }}
+          <h5><strong>Double Room</strong></h5>
+          <p>A spacious and elegant room with two double beds, a sofa, a TV, and a private bathroom.<br>&nbsp;</p><hr>
+          <strong>2000 NTD</strong>/night
+        </div>
+      </div>
+      <!-- Room Box 3 -->
+      <div class="col-md-4">
+        <div class="rounded p-3">
+          {{ render_carousel("content", "carouselDeluxe", ['images/deluxe_1.png', 'images/deluxe_2.png', 'images/deluxe_3.png', 'images/deluxe_4.png', 'images/deluxe_5.png', 'images/deluxe_6.png']) }}
+          <h5><strong>Deluxe Room</strong></h5>
+          <p>A luxurious and haussmannian room with a king-size bed, a double beds and a single bed, a balcony, a TV, and a private bathroom with a jacuzzi.</p><hr>
+          <strong>3000 NTD</strong>/night
+        </div>
+      </div>
+    </div>
+</div>
+
+  </section>
+  
 
         <!-- Section - Our Amenities -->
-        <section class="mt-5">
+        <section class="bg-secondary p-4">
+    <div class="container">
+
             <!-- Title -->
-            <h3 class="text-left">Our Amenities</h3>
+            <h2 class="text-left">Enjoy Our Exceptional Amenities</h2>
 
             <!-- Amenities Boxes -->
             <div class="row mt-4">
                 <!-- Amenity Box 1 -->
                 <div class="col-md-4">
-                    <div class="rounded p-3 text-center">
-                        {{ render_carousel("carouselRestaurant", ['images/restaurant_1.png', 'images/restaurant_2.png', 'images/restaurant_3.png']) }}
-                        <p>Restaurant</p>
+                    <div class="rounded p-3">
+                        {{ render_carousel("content", "carouselRestaurant", ['images/restaurant_1.png', 'images/restaurant_2.png', 'images/restaurant_3.png']) }}
+                        <h5><strong>Restaurant</strong></h5><hr>
+                        <p>Enjoy a delicious meal at our on-site restaurant, where you can choose from a variety of dishes made with fresh and local ingredients. Whether you prefer a hearty breakfast, a light lunch, or a gourmet dinner, our restaurant has something for everyone. You can also order room service or take advantage of our catering options for your events.</p>
                     </div>
                 </div>
                 <!-- Amenity Box 2 -->
                 <div class="col-md-4">
-                    <div class="rounded p-3 text-center">
-                        {{ render_carousel("carouselFitness", ['images/fitness_1.png', 'images/fitness_2.png', 'images/fitness_3.png']) }}
-                        <p>Fitness Studio</p>
+                    <div class="rounded p-3">
+                        {{ render_carousel("content", "carouselFitness", ['images/fitness_1.png', 'images/fitness_2.png', 'images/fitness_3.png']) }}
+                        <h5><strong>Fitness Studio</strong></h5><hr>
+                        <p>Stay fit and healthy at our fitness studio, where you can access state-of-the-art equipment, personal trainers, and group classes. Whether you want to lift weights, do cardio, or try something new, our fitness studio has it all. You can also join our wellness programs, such as yoga, pilates, or meditation, to improve your mind-body balance.</p>
                     </div>
                 </div>
                 <!-- Amenity Box 3 -->
                 <div class="col-md-4">
-                    <div class="rounded p-3 text-center">
-                        {{ render_carousel("carouselRelax", ['images/relax_1.png', 'images/relax_2.png', 'images/relax_3.png']) }}
-                        <p>Relaxation Area</p>
+                    <div class="rounded p-3">
+                        {{ render_carousel("content", "carouselRelax", ['images/relax_1.png', 'images/relax_2.png', 'images/relax_3.png']) }}
+                        <h5><strong>Relaxation Area</strong></h5><hr>
+                        <p>Relax and unwind at our relaxation area, where you can enjoy a range of spa amenities, such as saunas, steam rooms, hot tubs, and cold plunge pools. Whether you want to soothe your muscles, detoxify your skin, or boost your circulation, our relaxation area has it all. You can also book a massage, a facial, or a body treatment to pamper yourself and rejuvenate your senses.</p>
                     </div>
                 </div>
-            </div>
+</div>
+</div>
         </section>
 
     </div>
 </main>
-
 {% include 'includes/footer.html' %}

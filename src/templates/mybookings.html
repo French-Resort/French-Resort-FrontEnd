@@ -15,30 +15,31 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             {% endif %}
+<div class="table-responsive-md">
 
-            <table class="table table-bordered">
-                <thead class="table-dark">
-                    <tr>
-                        <!-- Table Headers -->
-                        <th>#</th>
-                        <th>Check In</th>
-                        <th>Check Out</th>
-                        <th>Room Type</th>
-                        <th>Price</th>
+    <table class="table table-bordered table-striped table-hover" width="100%">
+        <thead class="table-dark">
+            <tr>
+                <!-- Table Headers -->
+                <th class="text-center">#</th>
+                <th class="text-center">Check In</th>
+                <th class="text-center">Check Out</th>
+                <th class="text-center">Room Type</th>
+                        <th class="text-center">Price</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% if data %}
-                        {% for row in data %}
-                        <tr>
-                            <!-- Table Data -->
-                            <td>{{ loop.index }}</td>
-                            <td>{{ row["check_in_date"] }}</td>
-                            <td>{{ row["check_out_date"] }}</td>
-                            <td>{{ rooms[row["id_room"]] }}</td>
-                            <td>{{ row["total_price"] }} NTD</td>
-                        </tr>
-                        {% endfor %}
+                    {% for row in data %}
+                    <tr>
+                        <!-- Table Data -->
+                        <td class="text-center">{{ loop.index }}</td>
+                        <td class="text-center">{{ row["check_in_date"] }}</td>
+                        <td class="text-center">{{ row["check_out_date"] }}</td>
+                        <td class="text-center">{{ rooms[row["id_room"]] }}</td>
+                        <td style="text-align: right;">{{ row["total_price"]|float }} NTD</td>
+                    </tr>
+                    {% endfor %}
                     {% else %}
                     <tr>
                         <!-- Table Data -->
@@ -46,7 +47,14 @@
                     </tr>
                     {% endif %}
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="4" style="text-align: right;">Total :</th>
+                        <th style="text-align: right;">{{ total_spent }} NTD</th>
+                    </tr>
+                </tfoot>
             </table>
+        </div>
         </section>
     </div>
 </main>

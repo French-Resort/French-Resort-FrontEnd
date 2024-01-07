@@ -3,7 +3,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, DateField, SelectField, EmailField
 from wtforms.widgets import PasswordInput
 from wtforms.validators import DataRequired, Length, Regexp
-from datetime import datetime
+from datetime import datetime, timezone
+import requests
 from bdd_requests import *
 
 app = Flask(__name__)
@@ -12,8 +13,9 @@ app.config['SECRET_KEY'] = 'YourSecretKey'
 # Retrieve rooms from the database
 rooms = [(room['id_room'], f"{room['room_type']} - {room['price_per_night'][:-3]} NTD/night ({room['max_guests']} p. max)") for room in get_rooms()['data']] if get_rooms()['success'] else []
 
+
 # Current date
-date = datetime.now()
+date = datetime.today().date()
 
 class BookingForm(FlaskForm):
     """
@@ -25,8 +27,8 @@ class BookingForm(FlaskForm):
     - check_out_date (DateField): Field for entering the check-out date.
     """
     room_number = SelectField('Room Choices', choices=rooms, validators=[DataRequired()])
-    check_in_date = DateField('Check-In Date', format='%Y-%m-%d', validators=[DataRequired()])
-    check_out_date = DateField('Check-Out Date', format='%Y-%m-%d', validators=[DataRequired()])
+    check_in_date = StringField('Check-In Date', validators=[DataRequired()])
+    check_out_date = StringField('Check-Out Date', validators=[DataRequired()])
 
 class SignUpForm(FlaskForm):
     """
@@ -71,16 +73,17 @@ def index():
     session['date'] = date.strftime("%Y-%m-%d")
     form = BookingForm()
     if form.validate_on_submit():
-        if form.check_in_date.data > form.check_out_date.data or form.check_in_date.data < datetime.today().date():
+        if form.check_in_date.data > form.check_out_date.data or form.check_in_date.data < datetime.today().date().strftime('%Y-%m-%d'):
             return render_template('index.html', form=form, error="Check-in or Check-out date not valid !")
 
         if 'id_guest' in session:
-            response = book_room(session['id_guest'], form.room_number.data, form.check_in_date.data.strftime('%Y-%m-%d'), form.check_out_date.data.strftime('%Y-%m-%d'))
+            response = book_room(session['id_guest'], form.room_number.data, form.check_in_date.data, form.check_out_date.data)
         else:
             return render_template('index.html', form=form, error="You are not connected !")
 
         if response['success']:
-            return redirect(url_for('mybookings'))
+            # return redirect(url_for('mybookings'))
+            return render_template('index.html', form=form, success=True)
         else:
             return render_template('index.html', form=form, error=response['error'])
 
@@ -133,7 +136,19 @@ def mybookings():
     """
     response = get_bookings(session['id_guest'])
     if response['success']:
-        return render_template('mybookings.html', data=response['data']['bookings'], rooms={room[0]: room[1] for room in rooms})
+        # print(response['data']['bookings'])
+        total_spent = 0
+        # CALCULATE TOTAL SPENT
+        for booking_data in response['data']['bookings']:
+            total_price_str = booking_data.get("total_price", "0.0")  # Get the total_price value or default to "0.0"
+
+            try:
+                total_price_double = float(total_price_str)
+                total_spent = total_spent + total_price_double
+            except ValueError:
+                # Handle the case where conversion to double is not possible
+                print(f"Error converting total_price for booking ID {booking_data['id_booking']}")
+        return render_template('mybookings.html', data=response['data']['bookings'], rooms={room[0]: room[1] for room in rooms}, total_spent=total_spent)
     else:
         return render_template('mybookings.html', error=response['error'])
 
