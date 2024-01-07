@@ -26,12 +26,10 @@
 	</div>
 {% endmacro %}
 
-<!-- Hotel Rooms Boxes -->
 {{ render_carousel("header", "carouselSlide", ['images/slide_1.png', 'images/slide_2.png', 'images/slide_3.png'] ) }}
 
 <main>
 
-	<!-- Place this at the end of the body or in the head section -->
 	<script>
 		document.addEventListener("DOMContentLoaded", function () {
 			{% if success %}
@@ -96,6 +94,7 @@
 						{% endif %}
 					</form>
 			</div>
+<<<<<<< HEAD
 			<script>
 				$(document).ready(function () {
 
@@ -149,28 +148,52 @@
 
 						}
 
+						function formatDate(date) {
+							var d = new Date(date),
+								month = '' + (d.getMonth() + 1),
+								day = '' + d.getDate(),
+								year = d.getFullYear();
 
-						let sessionDate = "{{ session['date'] }}";
-						let check_in_date = "";
+							if (month.length < 2) 
+								month = '0' + month;
+							if (day.length < 2) 
+								day = '0' + day;
+
+							return [year, month, day].join('-');
+						}
+						
+						let sessionDate = "{{ session['today'] }}";
+						let check_in_date = $("[name=check_in_date]").val();
 						let check_out_date = "";
 						let lastDatepickerClicked = "";
 
-						$('[name=check_in_date], [name=check_out_date]').datepicker({dateFormat: "yy-mm-dd", minDate: sessionDate});
+						$("[name=check_in_date]").attr("min", sessionDate);
+						$("[name=check_out_date]").attr("min", check_in_date);
+						
+						$('[name=check_in_date], [name=check_out_date]').datepicker({dateFormat: "yy-mm-dd", numberOfMonths: 2});
+						
 
+						$("[name=check_in_date]").datepicker("option", "minDate", sessionDate);
+						$("[name=check_out_date]").datepicker("option", "minDate", check_in_date);
 						$('[name=check_in_date], [name=check_out_date]').on('click', function () {
 							lastDatepickerClicked = $(this).attr("name");
+							
 							updateSelectedDate($(this).datepicker("getDate"));
 						});
 
 						$('[name=check_in_date]').change(function () {
 							check_in_date = new Date(this.value);
 							$("[name=check_out_date]").datepicker("option", "minDate", check_in_date);
+							$("[name=check_out_date]").attr("min", formatDate(check_in_date));
+							$( this ).datepicker( "option", "showCurrentAtPos", check_in_date.getMonth() );
 							updateSelectedDate($(this).datepicker("getDate"));
-
+							
 						});
 						$('[name=check_out_date]').change(function () {
 							check_out_date = new Date(this.value);
-							$("[name=check_in_date]").datepicker("option", "maxDate", check_out_date);
+							// $("[name=check_in_date]").datepicker("option", "maxDate", check_out_date);
+							$("[name=check_in_date]").attr("max", formatDate(check_out_date));
+							$( this ).datepicker( "option", "showCurrentAtPos", check_in_date.getMonth() );
 							updateSelectedDate($(this).datepicker("getDate"));
 						});
 
@@ -189,6 +212,8 @@
 
 				})
 			</script>
+=======
+>>>>>>> 23155847c06aa4dafe7e212341579ae9ee80bb1f
 			<!-- Section - Our Hotel -->
 		</div>
 	</section>
