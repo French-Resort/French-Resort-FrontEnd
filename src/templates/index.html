@@ -26,10 +26,12 @@
 	</div>
 {% endmacro %}
 
+<!-- Hotel Rooms Boxes -->
 {{ render_carousel("header", "carouselSlide", ['images/slide_1.png', 'images/slide_2.png', 'images/slide_3.png'] ) }}
 
 <main>
 
+	<!-- Place this at the end of the body or in the head section -->
 	<script>
 		document.addEventListener("DOMContentLoaded", function () {
 			{% if success %}
@@ -94,6 +96,99 @@
 						{% endif %}
 					</form>
 			</div>
+			<script>
+				$(document).ready(function () {
+
+
+					$(function () {
+
+
+						function updateSelectedDate(currentDatepicker) {
+
+							let check_in = $("[name=check_in_date]").datepicker("getDate");
+							let check_out = $("[name=check_out_date]").datepicker("getDate");
+							var table = $(".ui-datepicker-calendar");
+
+							if (check_in != null || check_out != null) {
+								// Select the table element by its id
+
+								// Loop through each row in the table body
+								table.find("tbody tr").each(function () { // Loop through each cell in the current row
+									$(this).find("td").each(function () {
+										let currDate = new Date($(this).attr('data-year'), $(this).attr('data-month'), $(this).children().attr('data-date'));
+										if (check_in != null) {
+											if ($(this).children().attr('data-date') == check_in.getDate() && $(this).attr('data-month') == check_in.getMonth() && $(this).attr('data-year') == check_in.getFullYear()) {
+												$(this).children().addClass("check-in-date");
+											}
+										}
+										if (check_out != null) {
+											if ($(this).children().attr('data-date') == check_out.getDate() && $(this).attr('data-month') == check_out.getMonth() && $(this).attr('data-year') == check_out.getFullYear()) {
+												$(this).children().addClass("check-out-date");
+											}
+										}
+										if (check_in != null && check_out != null) {
+
+											if (Date.parse(currentDatepicker) == Date.parse(check_in) && $(this).attr('data-month') <= check_out.getMonth() && $(this).attr('data-year') <= check_out.getFullYear()) {
+
+												if (Date.parse(currDate) > Date.parse(check_in) && Date.parse(currDate) < Date.parse(check_out)) {
+													$(this).children().addClass('between');
+												}
+											}
+											if (Date.parse(currentDatepicker) == Date.parse(check_out) && $(this).attr('data-month') >= check_in.getMonth() && $(this).attr('data-year') >= check_in.getFullYear()) {
+
+												if (Date.parse(currDate) > Date.parse(check_in) && Date.parse(currDate) < Date.parse(check_out)) {
+													$(this).children().addClass('between');
+												}
+
+											}
+										}
+
+									});
+								});
+							}
+
+						}
+
+
+						let sessionDate = "{{ session['date'] }}";
+						let check_in_date = "";
+						let check_out_date = "";
+						let lastDatepickerClicked = "";
+
+						$('[name=check_in_date], [name=check_out_date]').datepicker({dateFormat: "yy-mm-dd", minDate: sessionDate});
+
+						$('[name=check_in_date], [name=check_out_date]').on('click', function () {
+							lastDatepickerClicked = $(this).attr("name");
+							updateSelectedDate($(this).datepicker("getDate"));
+						});
+
+						$('[name=check_in_date]').change(function () {
+							check_in_date = new Date(this.value);
+							$("[name=check_out_date]").datepicker("option", "minDate", check_in_date);
+							updateSelectedDate($(this).datepicker("getDate"));
+
+						});
+						$('[name=check_out_date]').change(function () {
+							check_out_date = new Date(this.value);
+							$("[name=check_in_date]").datepicker("option", "maxDate", check_out_date);
+							updateSelectedDate($(this).datepicker("getDate"));
+						});
+
+
+						$(document).on('click', '.ui-datepicker-next', function () {
+							console.log('next');
+							updateSelectedDate($("[name=" + lastDatepickerClicked + "]").datepicker("getDate"));
+						})
+
+						$(document).on('click', '.ui-datepicker-prev', function () {
+							console.log('prev');
+							updateSelectedDate($("[name=" + lastDatepickerClicked + "]").datepicker("getDate"));
+						})
+
+					});
+
+				})
+			</script>
 			<!-- Section - Our Hotel -->
 		</div>
 	</section>
