@@ -60,12 +60,12 @@
 						<!-- Date Picker - From -->
 						<div class="col-md form-group">
 							{{ form.check_in_date.label }}
-							{{ form.check_in_date(class="form-control", placeholder="Check-in date") }}
+							{{ form.check_in_date(class="form-control", min=session['today']) }}
 						</div>
 						<!-- Date Picker - To -->
 						<div class="col-md form-group">
 							{{ form.check_out_date.label }}
-							{{ form.check_out_date(class="form-control", placeholder="Check-out date") }}
+							{{ form.check_out_date(class="form-control", min=session['today']) }}
 						</div>
 						<!-- Select Picker - Room Type -->
 						<div class="col-md form-group">
