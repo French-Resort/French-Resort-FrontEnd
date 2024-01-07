@@ -1,39 +1,46 @@
 {% include 'includes/header.html' %}
 
 <main>
-    <!-- Page Content -->
-    <div class="container mt-4">
+	<!-- Page Content -->
+	<div
+		class="container mt-4">
 
-        <!-- Section - Sign Up -->
-        <section>
-            <!-- Sign Up -->
-            <div class="bg-secondary border rounded col-xl-5 col-lg-6 col-md-8 col-sm-12 mt-4 mx-auto p-4">
-                <!-- Title -->
-                <h1 class="text-center">Sign up</h1>
-                
-                <hr>
+		<!-- Section - Sign Up -->
+		<section>
+			<!-- Sign Up -->
+			<div class="bg-secondary border rounded col-xl-5 col-lg-6 col-md-8 col-sm-12 mt-4 mx-auto p-4">
+				<!-- Title -->
+				<h1 class="text-center">Sign up</h1>
+
+				<hr>
                 <form method="post">
                     {{ form.hidden_tag() }}
-                    <div class="row g-2">
+                    <div
+                        class="row g-2">
                         <!-- Input - FirstName -->
                         <div class="col-12 mb-3">
-                            {{ form.first_name.label }} {{ form.first_name(class="form-control", placeholder="Enter your first name") }}
+                            {{ form.first_name.label }}
+                            {{ form.first_name(class="form-control", placeholder="Enter your first name") }}
                         </div>
                         <!-- Input - LastName -->
                         <div class="col-12 mb-3">
-                            {{ form.last_name.label }} {{ form.last_name(class="form-control", placeholder="Enter your last name") }}
+                            {{ form.last_name.label }}
+                            {{ form.last_name(class="form-control", placeholder="Enter your last name") }}
                         </div>
                         <!-- Input - Phone -->
                         <div class="col-12 mb-3">
-                            {{ form.phone_number.label }} {{ form.phone_number(class="form-control", placeholder="Enter your phone number") }}
+                            {{ form.phone_number.label }}
+                            {{ form.phone_number(class="form-control", placeholder="Enter your phone number") }}
                         </div>
                         <!-- Input - Email -->
                         <div class="col-12 mb-3">
-                            {{ form.email.label }} {{ form.email(class="form-control", placeholder="Enter your email address") }}
+                            {{ form.email.label }}
+                            {{ form.email(class="form-control", placeholder="Enter your email address") }}
                         </div>
                         <!-- Input - Password -->
                         <div class="col-12 mb-3">
-                            {{ form.password.label }} {{ form.password(class="form-control", placeholder="Enter your password") }}
+                            {{ form.password.label }}
+                            {{ form.password(class="form-control", placeholder="Enter your password") }}
                         </div>
                         <!-- Continue Button -->
                         <div class="col-12">
@@ -42,10 +49,10 @@
                     </div>
 
                     {% if error %}
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        {{ error }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ error }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
                     {% endif %}
                 </form>
             </div>

@@ -1,172 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<head>
+		<meta charset="UTF-8">
+		<meta
+		name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    
-    <!-- Our color palette CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/custom.css') }}">
-    <!-- Images -->
-    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
+		<!-- Bootstrap -->
+		<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-    <!-- jQuery google CDN -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    
-    <!-- jQuery-UI google CDN -->
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+		<!-- Font Awesome -->
+		<link
+		rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
-    <title>French Resort</title>
+		<!-- Our color palette CSS -->
+		<link
+		rel="stylesheet" href="{{ url_for('static', filename='styles/custom.css') }}">
+		<!-- Images -->
+		<link
+		rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
 
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            margin: 0;
-        }
+		<!-- jQuery google CDN -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-        main {
-            flex: 1;
-            min-height: calc(100vh - 300px);
-            /* Adjust the value based on your actual footer height */
-        }
+		<!-- jQuery-UI google CDN -->
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
 
-        .carousel-item>img {
-            height: 300px;
-            object-fit: cover;
-        }
-        .check-in-date {
-    background-color: green;
-    color: white;
-}
+		<title>French Resort</title>
 
-.check-out-date {
-    background-color: red;
-    color: white;
-}
+		<style>
+			body {
+				display: flex;
+				flex-direction: column;
+				min-height: 100vh;
+				margin: 0;
+			}
 
-.ui-widget-header {
-    color: var(--primary) !important;
-}
+			main {
+				flex: 1;
+				min-height: calc(100vh - 300px);
+				/* Adjust the value based on your actual footer height */
+			}
 
-.ui-state-active.check-in-date, .ui-state-active.check-out-date, .check-in-date, .check-out-date{
-    background: var(--primary) !important;
-    color: var(--white) !important;
-}
+			.carousel-item > img {
+				height: 300px;
+				object-fit: cover;
+			}
+			.check-in-date {
+				background-color: green;
+				color: white;
+			}
 
-.ui-state-active.check-in-date:hover, .ui-state-active.check-out-date:hover, .check-in-date:hover, .check-out-date:hover{
-    background: var(--secondary) !important;
-}
+			.check-out-date {
+				background-color: red;
+				color: white;
+			}
 
-.ui-state-default.between{
-    background: #B5C2CD !important;
-}
+			.ui-widget-header {
+				color: var(--primary) !important;
+			}
 
-.ui-state-default.between:hover{
-    background: #6d869c !important;
-}
+			.ui-state-active.check-in-date,
+			.ui-state-active.check-out-date,
+			.check-in-date,
+			.check-out-date {
+				background: var(--primary) !important;
+				color: var(--white) !important;
+			}
 
-body {
-  width:100%;
-  
-}body.not-loaded {
-  overflow: hidden;
-}
+			.ui-state-active.check-in-date:hover,
+			.ui-state-active.check-out-date:hover,
+			.check-in-date:hover,
+			.check-out-date:hover {
+				background: var(--secondary) !important;
+			}
 
-#page_loader {
-  position: fixed;
-  background-color: #363636;
-  font-family: 'Roboto', sans-serif;
-  width: 100%;
-  height: 100vh;
-  top: 0px;
-  left: 0px;
-  z-index: 99;
-}
+			.ui-state-default.between {
+				background: #B5C2CD !important;
+			}
 
-#page_loader p {
-  color: rgba(255, 255, 255, 0.25);
-  text-align: center;
-  padding-top: 50px;
-  letter-spacing: 1.5px;
-}
+			.ui-state-default.between:hover {
+				background: #6d869c !important;
+			}
 
-#page_loader .loading {
-  width: 200px;
-  height: 200px;
-  position: absolute;
-  top: 50%; right: 50%;
-  transform: translate(50%,-50%);
-  background: url("{{ url_for('static', filename='images/loading.gif') }}") center center no-repeat;
-  background-size: cover;
+			body {
+				width: 100%;
 
-}
+			}
+			body.not-loaded {
+				overflow: hidden;
+			}
 
-    </style>
+			#page_loader {
+				position: fixed;
+				background-color: #363636;
+				font-family: 'Roboto', sans-serif;
+				width: 100%;
+				height: 100vh;
+				top: 0;
+				left: 0;
+				z-index: 99;
+			}
 
-</head>
+			#page_loader p {
+				color: rgba(255, 255, 255, 0.25);
+				text-align: center;
+				padding-top: 50px;
+				letter-spacing: 1.5px;
+			}
 
-<body class="bg-white">
+			#page_loader .loading {
+				width: 200px;
+				height: 200px;
+				position: absolute;
+				top: 50%;
+				right: 50%;
+				transform: translate(50%, -50%);
+				background: url("{{ url_for('static', filename='images/loading.gif') }}") center center no-repeat;
+				background-size: cover;
 
-    <div id="page_loader">
-        <div id="loading" class="loading"></div>
-      </div>
+			}
+		</style>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid container">
-            <span class="navbar-brand">
-                <a class="font-monospace h1 fw-bold text-decoration-none" href="/"><span
-                        style="color:#0D99FF;">Fren</span><span class="text-white">ch
-                        Re</span><span style="color: #ED2939;">sort</span></a>{% if session['id_guest']
-                        %}<span class="align-text-top badge bg-success d-inline-block d-lg-none mx-2"><i class="fa fa-user"></i></span> {% else %} <span
-                            class="align-text-top badge bg-danger d-inline-block d-lg-none mx-2"><i class="fa fa-user-lock"></i></span>{% endif %}
-            </span>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse fs-5" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == url_for('index') %} active nav-tabs {% endif %}"
-                            href="/">Home</a>
-                    </li>
-                    {% if session['id_guest'] %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == url_for('mybookings') %} active nav-tabs {% endif %}"
-                            href="/mybookings" onclick="$('#page_loader').fadeIn();">My bookings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link d-inline-block {% if request.path == url_for('logout') %} active nav-tabs {% endif %}"
-                            href="/logout">Log out <i class="fa fa-sign-out-alt"></i></a> 
-                    </li>
-                    {% else %}
+	</head>
 
-                    <li class="nav-item">
-                        <a class="nav-link d-inline-block {% if request.path == url_for('signup') %} active nav-tabs {% endif %}"
-                            href="/signup">Sign up</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link d-inline-block {% if request.path == url_for('login') %} active nav-tabs {% endif %}"
-                            href="/login">Log in <i class="fa fa-sign-in-alt"></i></a>
-                    </li>
-                    {% endif %}
-                </ul>
-                
-                {% if session['id_guest']
-                %}<span class="mx-2 badge bg-success d-lg-block d-none"><i class="fa fa-user"></i></span> {% else %} <span
-                    class="mx-2 badge bg-danger d-lg-block d-none"><i class="fa fa-user-lock"></i></span>{% endif %}
-            </div>
-        </div>
-    </nav>
+	<body class="bg-white">
+
+		<div id="page_loader">
+			<div id="loading" class="loading"></div>
+		</div>
+
+		<!-- Navigation Bar -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<div class="container-fluid container">
+				<span class="navbar-brand">
+					<a class="font-monospace h1 fw-bold text-decoration-none" href="/">
+						<span style="color:#0D99FF;">Fren</span>
+						<span class="text-white">ch
+							                        Re</span>
+						<span style="color: #ED2939;">sort</span>
+					</a>
+					{% if session['id_guest'] %}
+						<span class="align-text-top badge bg-success d-inline-block d-lg-none mx-2">
+							<i class="fa fa-user"></i>
+						</span>
+					{% else %}
+						<span class="align-text-top badge bg-danger d-inline-block d-lg-none mx-2">
+							<i class="fa fa-user-lock"></i>
+						</span>
+					{% endif %}
+				</span>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse fs-5" id="navbarNav">
+					<ul class="navbar-nav ms-auto">
+
+						<li class="nav-item">
+							<a class="nav-link {% if request.path == url_for('index') %} active nav-tabs {% endif %}" href="/">Home</a>
+						</li>
+						{% if session['id_guest'] %}
+							<li class="nav-item">
+								<a class="nav-link {% if request.path == url_for('mybookings') %} active nav-tabs {% endif %}" href="/mybookings" onclick="$('#page_loader').fadeIn();">My bookings</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link d-inline-block {% if request.path == url_for('logout') %} active nav-tabs {% endif %}" href="/logout">Log out
+									<i class="fa fa-sign-out-alt"></i>
+								</a>
+							</li>
+						{% else %}
+
+							<li class="nav-item">
+								<a class="nav-link d-inline-block {% if request.path == url_for('signup') %} active nav-tabs {% endif %}" href="/signup">Sign up</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link d-inline-block {% if request.path == url_for('login') %} active nav-tabs {% endif %}" href="/login">Log in
+									<i class="fa fa-sign-in-alt"></i>
+								</a>
+							</li>
+						{% endif %}
+					</ul>
+
+					{% if session['id_guest'] %}
+						<span class="mx-2 badge bg-success d-lg-block d-none">
+							<i class="fa fa-user"></i>
+						</span>
+					{% else %}
+						<span class="mx-2 badge bg-danger d-lg-block d-none">
+							<i class="fa fa-user-lock"></i>
+						</span>
+					{% endif %}
+				</div>
+			</div>
+		</nav>
+	</body>
+</html>

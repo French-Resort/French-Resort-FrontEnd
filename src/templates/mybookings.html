@@ -1,62 +1,65 @@
 {% include 'includes/header.html' %}
 
 <main>
-    <!-- Page Content -->
-    <div class="container mt-4">
+	<!-- Page Content -->
+	<div
+		class="container mt-4">
 
-        <!-- Section - My Bookings -->
-        <section>
-            <!-- Title -->
-            <h1 class="text-center">My Bookings</h1>
+		<!-- Section - My Bookings -->
+		<section>
+			<!-- Title -->
+			<h1 class="text-center">My Bookings</h1>
 
-            {% if error %}
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ error }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            {% endif %}
-<div class="table-responsive-md">
+			{% if error %}
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					{{ error }}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% endif %}
+			<div class="table-responsive-md">
 
-    <table class="table table-bordered table-striped table-hover" width="100%">
-        <thead class="table-dark">
-            <tr>
-                <!-- Table Headers -->
-                <th class="text-center">#</th>
-                <th class="text-center">Check In</th>
-                <th class="text-center">Check Out</th>
-                <th class="text-center">Room Type</th>
-                        <th class="text-center">Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if data %}
-                    {% for row in data %}
-                    <tr>
-                        <!-- Table Data -->
-                        <td class="text-center">{{ loop.index }}</td>
-                        <td class="text-center">{{ row["check_in_date"] }}</td>
-                        <td class="text-center">{{ row["check_out_date"] }}</td>
-                        <td class="text-center">{{ rooms[row["id_room"]] }}</td>
-                        <td style="text-align: right;">{{ row["total_price"]|float }} NTD</td>
-                    </tr>
-                    {% endfor %}
-                    {% else %}
-                    <tr>
-                        <!-- Table Data -->
-                        <td class="text-center" colspan="5">No data</td>
-                    </tr>
-                    {% endif %}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th colspan="4" style="text-align: right;">Total :</th>
-                        <th style="text-align: right;">{{ total_spent }} NTD</th>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-        </section>
-    </div>
+				<table class="table table-bordered table-striped table-hover" width="100%">
+					<thead class="table-dark">
+						<tr>
+							<!-- Table Headers -->
+							<th class="text-center">#</th>
+							<th class="text-center">Check In</th>
+							<th class="text-center">Check Out</th>
+							<th class="text-center">Room Type</th>
+							<th class="text-center">Price</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% if data %}
+							{% for row in data %}
+								<tr>
+									<!-- Table Data -->
+									<td class="text-center">{{ loop.index }}</td>
+									<td class="text-center">{{ row["check_in_date"] }}</td>
+									<td class="text-center">{{ row["check_out_date"] }}</td>
+									<td class="text-center">{{ rooms[row["id_room"]] }}</td>
+									<td style="text-align: right;">{{ row["total_price"]|float }}
+										NTD</td>
+								</tr>
+							{% endfor %}
+						{% else %}
+							<tr>
+								<!-- Table Data -->
+								<td class="text-center" colspan="5">No data</td>
+							</tr>
+						{% endif %}
+					</tbody>
+					<tfoot>
+						<tr>
+							<th colspan="4" style="text-align: right;">Total :</th>
+							<th style="text-align: right;">{{ total_spent }}
+								NTD</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</section>
+	</div>
 </main>
 
 {% include 'includes/footer.html' %}

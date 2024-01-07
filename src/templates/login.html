@@ -1,17 +1,17 @@
 {% include 'includes/header.html' %}
 
 <main>
-    <div class="container mt-4">
+	<div class="container mt-4">
 
-        <!-- Section - Log In -->
-        <section>
+		<!-- Section - Log In -->
+		<section>
 
-            <!-- Log In -->
-            <div class="bg-secondary border rounded col-xl-5 col-lg-6 col-md-8 col-sm-12 mt-4 mx-auto p-4">
-                <!-- Title -->
-                <h1 class="text-center">Log in or sign up</h1>
-                
-                <hr>
+			<!-- Log In -->
+			<div class="bg-secondary border rounded col-xl-5 col-lg-6 col-md-8 col-sm-12 mt-4 mx-auto p-4">
+				<!-- Title -->
+				<h1 class="text-center">Log in or sign up</h1>
+
+				<hr>
                 <br>
                 <h5>Welcome to French Resort !</h5>
                 <form method="post">
@@ -19,11 +19,13 @@
                     <div class="row g-3">
                         <!-- Input - User -->
                         <div class="col-12 mb-3">
-                            {{ form.email.label }} {{ form.email(class="form-control", placeholder="Enter your email address") }}
+                            {{ form.email.label }}
+                            {{ form.email(class="form-control", placeholder="Enter your email address") }}
                         </div>
                         <!-- Input - Password -->
                         <div class="col-12 mb-3">
-                            {{ form.password.label }} {{ form.password(class="form-control", placeholder="Enter your password") }}
+                            {{ form.password.label }}
+                            {{ form.password(class="form-control", placeholder="Enter your password") }}
                         </div>
                         <!-- Continue Button -->
                         <div class="col-12">
@@ -47,4 +49,4 @@
     </div>
 </main>
 
-{% include 'includes/footer.html' %}
+    {% include 'includes/footer.html' %}
