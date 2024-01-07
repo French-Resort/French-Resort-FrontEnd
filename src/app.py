@@ -1,10 +1,9 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for, session
+from flask import Flask, render_template, redirect, url_for, session
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, DateField, SelectField, EmailField
 from wtforms.widgets import PasswordInput
 from wtforms.validators import DataRequired, Length, Regexp
-from datetime import datetime, timezone
-import requests
+from datetime import datetime
 from bdd_requests import *
 
 app = Flask(__name__)
@@ -12,10 +11,6 @@ app.config['SECRET_KEY'] = 'YourSecretKey'
 
 # Retrieve rooms from the database
 rooms = [(room['id_room'], f"{room['room_type']} - {room['price_per_night'][:-3]} NTD/night ({room['max_guests']} p. max)") for room in get_rooms()['data']] if get_rooms()['success'] else []
-
-
-# Current date
-date = datetime.today().date()
 
 class BookingForm(FlaskForm):
     """
@@ -27,8 +22,8 @@ class BookingForm(FlaskForm):
     - check_out_date (DateField): Field for entering the check-out date.
     """
     room_number = SelectField('Room Choices', choices=rooms, validators=[DataRequired()])
-    check_in_date = StringField('Check-In Date', validators=[DataRequired()])
-    check_out_date = StringField('Check-Out Date', validators=[DataRequired()])
+    check_in_date = DateField('Check-In Date',  format='%Y-%m-%d', validators=[DataRequired()])
+    check_out_date = DateField('Check-Out Date', format='%Y-%m-%d', validators=[DataRequired()])
 
 class SignUpForm(FlaskForm):
     """
@@ -70,14 +65,14 @@ def index():
     Returns:
     - render_template: Renders the 'index.html' template.
     """
-    session['date'] = date.strftime("%Y-%m-%d")
+    session['date'] = datetime.today().date().strftime("%Y-%m-%d")
     form = BookingForm()
     if form.validate_on_submit():
-        if form.check_in_date.data > form.check_out_date.data or form.check_in_date.data < datetime.today().date().strftime('%Y-%m-%d'):
+        if form.check_in_date.data > form.check_out_date.data or form.check_in_date.data < datetime.today().date():
             return render_template('index.html', form=form, error="Check-in or Check-out date not valid !")
 
         if 'id_guest' in session:
-            response = book_room(session['id_guest'], form.room_number.data, form.check_in_date.data, form.check_out_date.data)
+            response = book_room(session['id_guest'], form.room_number.data, form.check_in_date.data.strftime('%Y-%m-%d'), form.check_out_date.data.strftime('%Y-%m-%d'))
         else:
             return render_template('index.html', form=form, error="You are not connected !")
 
