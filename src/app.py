@@ -11,7 +11,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'YourSecretKey'
 
 # Retrieve rooms from the database
-rooms = [(room['id_room'], f"{room['room_type']} - {room['price_per_night'][:-3]} NTD/night ({room['max_guests']} p. max)") for room in get_rooms()['data']] if get_rooms()['success'] else []
+def updateRoomsChoice():
+    return [(room['id_room'], f"{room['room_type']} - {room['price_per_night'][:-3]} NTD/night ({room['max_guests']} p. max)") for room in get_rooms()['data']] if get_rooms()['success'] else []
 
 
 # Current date
@@ -26,7 +27,7 @@ class BookingForm(FlaskForm):
     - check_in_date (DateField): Field for entering the check-in date.
     - check_out_date (DateField): Field for entering the check-out date.
     """
-    room_number = SelectField('Room Choices', choices=rooms, validators=[DataRequired()])
+    room_number = SelectField('Room Choices', choices=updateRoomsChoice(), validators=[DataRequired()])
     check_in_date = DateField('Check-In Date', format='%Y-%m-%d', validators=[DataRequired()])
     check_out_date = DateField('Check-Out Date', format='%Y-%m-%d', validators=[DataRequired()])
 
