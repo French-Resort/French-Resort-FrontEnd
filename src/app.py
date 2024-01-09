@@ -149,7 +149,7 @@ def mybookings():
             except ValueError:
                 # Handle the case where conversion to double is not possible
                 print(f"Error converting total_price for booking ID {booking_data['id_booking']}")
-        return render_template('mybookings.html', data=response['data']['bookings'], rooms={room[0]: room[1] for room in rooms}, total_spent=total_spent)
+        return render_template('mybookings.html', data=response['data']['bookings'], rooms={room[0]: room[1] for room in updateRoomsChoice()}, total_spent=total_spent)
     else:
         return render_template('mybookings.html', error=response['error'])
 
