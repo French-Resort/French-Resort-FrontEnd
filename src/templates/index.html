@@ -94,6 +94,19 @@
 						{% endif %}
 					</form>
 			</div>
+
+			<script>
+				$(document).ready(function () {
+					$('[name=check_in_date]').change(function(){
+						check_in = new Date($(this).val());
+						check_out = new Date($("[name=check_out_date]").val());
+						$( "[name=check_out_date]" ).attr( "min", this.value );
+						if(check_in > check_out){
+							$( "[name=check_out_date]" ).val("");
+						}
+					});
+				});
+			</script>
 			<!-- Section - Our Hotel -->
 		</div>
 	</section>
